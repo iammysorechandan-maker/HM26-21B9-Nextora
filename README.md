@@ -1,131 +1,99 @@
-# Mysuru Macchegalu (ಮೈಸೂರು ಮಚ್ಚೆಗಳು)
-> *"namma mysuru, namma kartavya"* (ನಮ್ಮ ಮೈಸೂರು, ನಮ್ಮ ಕರ್ತವ್ಯ)
+# Mysuru Macchegalu (ಮೈಸೂರು ಮಚ್ಚೆಗಳು) — "namma mysuru, namma kartavya"
 
-A modern, citizen-centric civic governance and accountability web application built for Mysuru under the Greater Mysuru Expansion Policy.
+> HackMysuru 1.0 · Phase 1 · Civic Governance & Clean Mysuru  
+> Team Nextora (`HM26-21B9`)
 
----
-
-## 🌟 Key Features
-
-1. **Dual-Interface System:**
-   - **Citizen Portal:** Report civic issues, automatically discover designated elected representatives, track allotted field officers, and vote on community priorities.
-   - **Officials Portal:** Dedicated operational cockpit for Mysuru City Corporation (MCC) Commissioners, Ward Engineers, and MLA/MP Secretariats.
-
-2. **Smart Auto-Allotment of Representatives:**
-   - When a citizen selects their **Ward Number**, the platform instantly and automatically maps and displays:
-     - **Member of Parliament (MP):** Yaduveer Krishnadatta Chamaraja Wadiyar
-     - **Member of Legislative Assembly (MLA):** Auto-mapped by constituency (Krishnaraja: T.S. Srivatsa, Chamaraja: K. Harish Gowda, Narasimharaja: Tanveer Sait, Chamundeshwari: G.T. Devegowda)
-     - **Ward Assistant Executive Engineer (AEE):** Ward engineer's direct official name and phone number.
-
-3. **Critical Stale Complaint Alert (> 20 Days):**
-   - Built specifically to tackle the issue of ignored grievances under Greater Mysuru expansion.
-   - Any unresolved grievance that has passed **20 days** is highlighted with a **pulsing red alert badge** (`Critical: Stale > 20 Days`), elevating urgency in both the Citizen timeline and the Official dashboard.
-
-4. **Officer Allotment & Full Transparency:**
-   - Officials can allot on-ground officers with mandatory fields:
-     - **Officer Name**
-     - **Official Mobile Phone Number**
-     - **Allotted Target Completion Deadline Date**
-     - **Department / Internal Notes**
-   - Citizens can view the allotted officer's details in real-time and call them directly with one click.
-
-5. **"Influencer's Pick" (ಪ್ರಭಾವಿಗಳ ಆಯ್ಕೆ) Community Collaboration:**
-   - Mysuru civic influencers, activists, and youth creators spotlight critical neglected issues (such as outer ring road danger zones, heritage building restoration, or lake pollution).
-   - Citizens can **upvote** and amplify issues to drive municipal action.
-
-6. **Full Kannada & English Bilingual Localization (i18n):**
-   - 1-click toggle between English and Kannada (ಕನ್ನಡ) across every heading, button, status badge, and input form.
-
-7. **Clean, Minimal UI with Dark & Light Mode:**
-   - Designed with Mysuru royal heritage palette (Palace Amber & Royal Indigo) with smooth theme transitions.
+| 📎 Submission links | 📋 Templates | 🏗️ Architecture | 🛡️ Hard constraints | ⚙️ Setup | 🤖 AI usage | ⚠️ Limitations |
+|---|---|---|---|---|---|---|
+| [resource.md](./resource.md) | [resource-templates/](./resource-templates/) | [docs/architecture.md](./docs/architecture.md) | [docs/constraints.md](./docs/constraints.md) | [docs/setup.md](./docs/setup.md) | [ai.md](./ai.md) | [docs/limitations.md](./docs/limitations.md) |
 
 ---
 
-## 🚀 How to Run Locally
+## 1. Problem Understanding
 
-You don't need to install any heavy packages or build tools! The application is zero-dependency.
+**Chosen sub-problem:** Routing, Transparency & Accountability under Greater Mysuru Expansion
 
-1. Navigate to this project folder:
-   ```
-   C:\Users\iammy\.gemini\antigravity\scratch\mysuru-macchegalu
-   ```
-2. Double-click `index.html` to open it in Google Chrome, Microsoft Edge, or any modern web browser.
-3. Switch between **Citizen Portal** and **Officials Portal** using the top navigation bar.
-4. Try toggling **ಕನ್ನಡ** for the complete Kannada interface!
+- **The gap we saw:** Under the new Greater Mysuru expansion policy, hundreds of newly added layouts (Bogadi, Hootagalli, Dattagalli, Ilavala) fall into jurisdictional cracks between MCC, Gram Panchayats, and MUDA. Citizens register complaints, have no idea whom to contact (MLA, MP, or Ward Engineer), and grievances languish for weeks—becoming stale and completely ignored (> 20 days old).
+- **Why it matters:** Severe safety hazards (open storm drains, fatal outer ring road dark spots, drinking water contamination) persist unattended, eroding public trust in civic administration.
+- **Why we chose this over the others:** Accountability is the root bottleneck of urban governance. Even if an issue is detected, without automated representative allocation, mandatory field officer contact dispatch, and critical aging alerts, it never gets resolved.
+- **What "solved" looks like for us:** A citizen enters their Ward number once; the system automatically allots the MP, MLA, and Ward AEE with direct phone numbers. Any complaint older than 20 days triggers high-priority critical alerts in municipal cockpits, while civic influencers can crowd-amplify neglected emergencies.
 
 ---
 
-## 📤 How to Upload this Code to GitHub
+## 2. Target Users & Mysuru Context
 
-### Option 1: Using the Git Command Line (Recommended)
+| User | Their situation | What they need from us |
+|---|---|---|
+| **Greater Mysuru Resident** | Confused by ward boundaries and overlapping jurisdictions; doesn't know who represents their area. | Register issue once, auto-discover MLA/MP & Ward Engineer, get direct officer phone and completion deadline. |
+| **Ward Engineer / AEE** | Overwhelmed with incoming unstructured issues with no clear deadline prioritization. | Action queue prioritizing critical stale (> 20 days) grievances, dispatch field workers with phone and deadline. |
+| **Civic Influencers & Activists** | High public reach on social media, but no official platform to formalize civic pressure. | **"Influencer's Pick"** spotlighting neglected issues with community voting to force institutional action. |
+| **Elected Representatives (MLA / MP)** | Lack constituent-level visibility into unaddressed grievances crossing 20+ days. | Constituency-wide KPI dashboard tracking resolution rates and aging issues in real time. |
 
-#### Step 1: Install Git (if not already installed)
-Open **PowerShell** as Administrator and run:
-```powershell
-winget install --id Git.Git -e --source winget
-```
-*(After installation finishes, close and reopen your PowerShell window).*
+**Local context we designed for:** Full Kannada (`ಕನ್ನಡ`) & English bilingual support, Mysuru heritage aesthetic (Palace Amber & Royal Indigo), zero-dependency client architecture for 100% offline & low-bandwidth resilience.
 
-#### Step 2: Create a New Repository on GitHub
-1. Go to [github.com/new](https://github.com/new).
-2. Repository name: `mysuru-macchegalu`
-3. Visibility: **Public**
-4. Do **not** check "Add a README file" (you already have this one).
-5. Click **Create repository**.
-6. Copy your repository URL (e.g. `https://github.com/YOUR_USERNAME/mysuru-macchegalu.git`).
+---
 
-#### Step 3: Initialize Git and Push Your Project
-In PowerShell, run:
-```powershell
-# 1. Change directory to the project folder
-cd "C:\Users\iammy\.gemini\antigravity\scratch\mysuru-macchegalu"
+## 3. Solution Overview
 
-# 2. Initialize git repository
-git init
+**Mysuru Macchegalu** (*"namma mysuru, namma kartavya"*) is a dual-portal civic transparency web application designed for Greater Mysuru:
 
-# 3. Add all files
-git add .
+**Core flow:**
+1. **Citizen Registers:** Selects Ward Number; the system automatically identifies the constituency and maps the **MP (Yaduveer Wadiyar)**, **MLA (T.S. Srivatsa / K. Harish Gowda / Tanveer Sait / G.T. Devegowda)**, and **Ward AEE** with contact phone numbers.
+2. **Citizen Files Grievance:** Specifies location, category (Roads, Sewage, Water, Lights, Waste), and urgency.
+3. **Stale Complaint Detection:** Any grievance that crosses **20 days** without resolution is automatically tagged with a **pulsing red warning alert** (`Critical: Stale > 20 Days`).
+4. **Official Cockpit:** MCC officers and MLA secretariats view constituency metrics, filter stale grievances, and allot an on-ground officer with **Mandatory Name, Phone Number, and Completion Deadline Date**.
+5. **Influencer's Pick:** Activists spotlight critical emergencies with crowd upvoting to escalate public accountability.
 
-# 4. Commit files
-git commit -m "Initial commit: Mysuru Macchegalu civic governance portal"
+---
 
-# 5. Set branch to main
-git branch -M main
+## 4. Architecture
 
-# 6. Link to your GitHub repository (replace with your actual URL)
-git remote add origin https://github.com/YOUR_USERNAME/mysuru-macchegalu.git
+A zero-dependency, high-performance web architecture running modern semantic HTML5, Tailwind CSS, Lucide Icons, and client-side reactive state management with LocalStorage persistence.
 
-# 7. Push to GitHub
-git push -u origin main
+➡️ Full architectural diagrams, components, data model and APIs: **[docs/architecture.md](./docs/architecture.md)**
+
+---
+
+## 5. Tech Stack & AI Usage
+
+* **Frontend:** Semantic HTML5, Tailwind CSS, Lucide Icons, Google Fonts (Plus Jakarta Sans + Noto Sans Kannada)
+* **Data & Localization Engine:** Modular JavaScript (`data.js`, `i18n.js`, `app.js`) with client-side state caching
+* **Hosting:** 100% compatible with GitHub Pages, Vercel, or local double-click execution
+
+**AI tools used in development:** Antigravity (Gemini 3.8 Flash) for architecture design, bilingual Kannada localization synthesis, and rapid prototyping.
+
+➡️ Full disclosure: **[ai.md](./ai.md)**
+
+---
+
+## 6. Setup & Run
+
+### Instant Local Run (No Installation Required)
+Simply double-click `index.html` in your browser!
+
+### Development
+```bash
+git clone https://github.com/iammysorechandan-maker/HM26-21B9-Nextora.git
+cd HM26-21B9-Nextora
+# Open index.html in any browser or serve via npx serve
 ```
 
----
-
-### Option 2: Using GitHub Desktop (Easiest Visual Method)
-
-1. Download and install **GitHub Desktop** from [desktop.github.com](https://desktop.github.com/).
-2. Sign in with your GitHub account.
-3. Click **File** > **Add Local Repository...**
-4. Browse and select `C:\Users\iammy\.gemini\antigravity\scratch\mysuru-macchegalu`.
-5. Click **create a repository here** if prompted.
-6. Click **Publish repository** to push it to your GitHub account!
+➡️ Prerequisites, seed data, and offline testing: **[docs/setup.md](./docs/setup.md)**
 
 ---
 
-### Option 3: Direct Web Upload on GitHub.com
+## 7. Submission Artifacts & Links
 
-1. Go to [github.com/new](https://github.com/new) and create a repository named `mysuru-macchegalu`.
-2. Under "Quick setup", click **"uploading an existing file"**.
-3. Drag and drop the `index.html`, `README.md`, `css/` folder, and `js/` folder directly into the browser.
-4. Click **Commit changes**.
+* 📎 Submission Index: **[resource.md](./resource.md)**
+* 🤖 AI Usage Report: **[ai.md](./ai.md)**
+* 🏗️ Architecture: **[docs/architecture.md](./docs/architecture.md)**
+* 🛡️ Hard Constraints: **[docs/constraints.md](./docs/constraints.md)**
+* ⚙️ Setup & Testing: **[docs/setup.md](./docs/setup.md)**
+* ⚠️ Limitations & Roadmap: **[docs/limitations.md](./docs/limitations.md)**
 
 ---
 
-## 🌐 Publish Live on the Internet (Free with GitHub Pages)
+## Team Nextora
 
-Once pushed to GitHub, you can make your website live worldwide:
-1. In your GitHub repository, go to **Settings** > **Pages** (on the left sidebar).
-2. Under **Branch**, select `main` branch and `/ (root)` folder.
-3. Click **Save**.
-4. In ~60 seconds, your site will be live at:
-   `https://YOUR_USERNAME.github.io/mysuru-macchegalu/`
+* **Team Lead:** Chandan (`@iammysorechandan-maker`)
+* **Project:** Mysuru Macchegalu (ಮೈಸೂರು ಮಚ್ಚೆಗಳು)
