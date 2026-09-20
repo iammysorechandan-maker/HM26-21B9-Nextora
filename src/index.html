@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en" class="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Mysuru Macchegalu | ಮೈಸೂರು ಮಚ್ಚೆಗಳು - namma mysuru, namma kartavya</title>
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d97706'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23dc5a24'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -14,9 +14,33 @@
       theme: {
         extend: {
           colors: {
-            amber: {
-              450: '#f59e0b',
-              550: '#d97706',
+            background: 'hsl(var(--background))',
+            foreground: 'hsl(var(--foreground))',
+            card: {
+              DEFAULT: 'hsl(var(--card))',
+              foreground: 'hsl(var(--card-foreground))'
+            },
+            border: 'hsl(var(--border))',
+            input: 'hsl(var(--input))',
+            primary: {
+              DEFAULT: 'hsl(var(--primary))',
+              foreground: 'hsl(var(--primary-foreground))'
+            },
+            secondary: {
+              DEFAULT: 'hsl(var(--secondary))',
+              foreground: 'hsl(var(--secondary-foreground))'
+            },
+            muted: {
+              DEFAULT: 'hsl(var(--muted))',
+              foreground: 'hsl(var(--muted-foreground))'
+            },
+            accent: {
+              DEFAULT: 'hsl(var(--accent))',
+              foreground: 'hsl(var(--accent-foreground))'
+            },
+            destructive: {
+              DEFAULT: 'hsl(var(--destructive))',
+              foreground: 'hsl(var(--destructive-foreground))'
             }
           }
         }
@@ -27,214 +51,255 @@
   <!-- Lucide Icons CDN -->
   <script src="https://unpkg.com/lucide@latest"></script>
 
-  <!-- Custom CSS -->
+  <!-- Custom Styles with CivicTrack Aesthetic -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
-<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+<body class="grain bg-background text-foreground min-h-[100dvh] transition-colors duration-200">
 
-  <!-- Top Navigation & Brand Bar -->
-  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div class="flex items-center justify-between h-20">
-        
-        <!-- Logo & Brand -->
-        <div class="flex items-center gap-3.5">
-          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-400 p-0.5 shadow-md flex items-center justify-center text-white">
-            <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center">
-              <i data-lucide="shield-alert" class="w-6 h-6 text-amber-400"></i>
-            </div>
-          </div>
-          <div>
-            <div class="flex items-center gap-2">
-              <h1 class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white" data-i18n="brandName">
-                Mysuru Macchegalu
-              </h1>
-              <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 border border-amber-300 dark:border-amber-800/60">
-                Greater Mysuru
-              </span>
-            </div>
-            <p class="text-xs font-semibold text-amber-600 dark:text-amber-400 tracking-wider uppercase italic" data-i18n="tagline">
-              "namma mysuru, namma kartavya"
-            </p>
-          </div>
+  <!-- ========================================================================= -->
+  <!-- TOP HEADER (CivicTrack Inspired Minimal & Editorial) -->
+  <!-- ========================================================================= -->
+  <header class="mx-auto flex max-w-6xl items-center justify-between px-5 py-5">
+    
+    <!-- Logo & Title -->
+    <a href="#" class="flex items-center gap-3 font-bold tracking-tight text-foreground group">
+      <span class="grid size-10 place-items-center rounded-2xl bg-primary text-primary-foreground shadow-soft transition-transform group-hover:scale-105">
+        <i data-lucide="landmark" class="w-5 h-5"></i>
+      </span>
+      <div>
+        <div class="flex items-center gap-2">
+          <span class="text-xl font-bold tracking-tight leading-none">
+            Mysuru<span class="text-accent">Macchegalu</span>
+          </span>
+          <span class="hidden sm:inline-block text-[10px] uppercase font-bold tracking-wider px-2 py-0.5 rounded-full border border-border bg-card text-muted-foreground">
+            Greater Mysuru
+          </span>
         </div>
-
-        <!-- Portal Role Selector Tabs -->
-        <div class="hidden md:flex items-center bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-700">
-          <button id="nav-citizen-btn" class="px-5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-amber-500 text-slate-900 shadow-md">
-            <i data-lucide="users" class="w-4 h-4"></i>
-            <span data-i18n="citizenPortal">Citizen Portal</span>
-          </button>
-          <button id="nav-official-btn" class="px-5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-400 hover:text-slate-200">
-            <i data-lucide="shield" class="w-4 h-4"></i>
-            <span data-i18n="officialPortal">Officials Portal</span>
-          </button>
-        </div>
-
-        <!-- Utility Toggles: Language & Theme -->
-        <div class="flex items-center gap-2.5">
-          <!-- Kannada / English Toggle -->
-          <button 
-            id="lang-toggle-btn"
-            class="px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 shadow-sm transition"
-            title="Toggle Kannada / English"
-          >
-            <i data-lucide="languages" class="w-4 h-4 text-amber-500"></i>
-            <span id="lang-toggle-text">ಕನ್ನಡ</span>
-          </button>
-
-          <!-- Theme Toggle -->
-          <button 
-            id="theme-toggle-btn"
-            class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 shadow-sm transition flex items-center gap-1.5 text-xs font-medium"
-            title="Toggle Dark / Light Theme"
-          >
-            <i id="theme-icon" data-lucide="sun" class="w-4 h-4 text-amber-500"></i>
-            <span id="theme-label" class="hidden sm:inline" data-i18n="lightMode">Light Mode</span>
-          </button>
-        </div>
-
+        <p class="text-[11px] font-medium text-accent italic tracking-wide mt-0.5" data-i18n="tagline">
+          "namma mysuru, namma kartavya"
+        </p>
       </div>
+    </a>
 
-      <!-- Mobile Portal Selector Sub-bar -->
-      <div class="flex md:hidden pb-3 pt-1 border-t border-slate-100 dark:border-slate-800 gap-2">
-        <button id="mobile-nav-citizen-btn" onclick="document.getElementById('nav-citizen-btn').click()" class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 text-center">
-          Citizen Portal
+    <!-- Navigation Role Switcher Pills -->
+    <div class="flex items-center gap-2">
+      <div class="hidden sm:flex items-center rounded-full border border-border bg-card p-1 shadow-soft">
+        <button 
+          id="nav-citizen-btn" 
+          class="rounded-full px-4 py-2 text-xs font-semibold transition-all hover:-translate-y-0.5 bg-primary text-primary-foreground shadow-soft flex items-center gap-1.5"
+        >
+          <i data-lucide="users" class="w-3.5 h-3.5"></i>
+          <span data-i18n="citizenPortal">Citizen Portal</span>
         </button>
-        <button id="mobile-nav-official-btn" onclick="document.getElementById('nav-official-btn').click()" class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-center">
-          Officials Portal
+        <button 
+          id="nav-official-btn" 
+          class="rounded-full px-4 py-2 text-xs font-semibold transition-all text-muted-foreground hover:text-foreground flex items-center gap-1.5"
+        >
+          <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+          <span data-i18n="officialPortal">Officials Portal</span>
         </button>
       </div>
 
+      <!-- Language & Theme Utilities -->
+      <button 
+        id="lang-toggle-btn"
+        class="inline-flex items-center justify-center gap-1.5 rounded-full border border-border bg-card px-3.5 py-2 text-xs font-semibold text-foreground hover:bg-muted shadow-soft transition-all hover:-translate-y-0.5"
+        title="Toggle Kannada / English"
+      >
+        <i data-lucide="languages" class="w-3.5 h-3.5 text-accent"></i>
+        <span id="lang-toggle-text">ಕನ್ನಡ</span>
+      </button>
+
+      <button 
+        id="theme-toggle-btn"
+        class="inline-flex items-center justify-center gap-1.5 rounded-full border border-border bg-card p-2 sm:px-3 sm:py-2 text-xs font-semibold text-foreground hover:bg-muted shadow-soft transition-all hover:-translate-y-0.5"
+        title="Toggle Dark / Light Theme"
+      >
+        <i id="theme-icon" data-lucide="moon" class="w-3.5 h-3.5 text-primary"></i>
+        <span id="theme-label" class="hidden md:inline" data-i18n="darkMode">Dark Mode</span>
+      </button>
     </div>
+
   </header>
 
-  <!-- MAIN CONTAINER -->
-  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+  <!-- Mobile Role Switcher Bar -->
+  <div class="sm:hidden px-5 pb-3">
+    <div class="flex items-center justify-center rounded-full border border-border bg-card p-1 shadow-soft">
+      <button onclick="document.getElementById('nav-citizen-btn').click()" class="flex-1 py-1.5 rounded-full text-xs font-bold bg-primary text-primary-foreground text-center">
+        Citizen Portal
+      </button>
+      <button onclick="document.getElementById('nav-official-btn').click()" class="flex-1 py-1.5 rounded-full text-xs font-bold text-muted-foreground text-center">
+        Officials Portal
+      </button>
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MAIN CONTENT CONTAINER -->
+  <!-- ========================================================================= -->
+  <main class="mx-auto max-w-6xl px-5 space-y-12">
 
     <!-- ========================================================================= -->
-    <!-- CITIZEN PORTAL SECTION -->
+    <!-- SECTION: CITIZEN PORTAL -->
     <!-- ========================================================================= -->
-    <section id="citizen-portal-section" class="space-y-8">
+    <section id="citizen-portal-section" class="space-y-12">
 
-      <!-- Hero & Greater Mysuru Mission Banner -->
-      <div class="relative overflow-hidden rounded-3xl mysore-gradient text-white p-8 md:p-10 shadow-xl border border-indigo-900/50">
-        <div class="relative z-10 max-w-3xl">
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider mb-4">
-            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-            Greater Mysuru Expansion Transparency Drive
+      <!-- Hero Section (Editorial Fraunces typography, pill badges, action pills) -->
+      <section class="max-w-4xl pt-6 pb-4">
+        <div class="animate-rise">
+          
+          <!-- Pill Tag -->
+          <div class="mb-6 inline-flex items-center gap-2 rounded-full border border-border bg-card px-3.5 py-1.5 text-xs font-semibold text-primary shadow-soft">
+            <i data-lucide="shield-check" class="w-4 h-4 text-primary"></i>
+            <span>Greater Mysuru Civic Accountability Platform</span>
           </div>
-          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-3" data-i18n="citizenGreeting">
-            Welcome to Mysuru Macchegalu
-          </h2>
-          <p class="text-sm sm:text-base text-slate-200 leading-relaxed mb-6" data-i18n="citizenSubtitle">
-            A Greater Mysuru civic initiative. Report issues, get direct representative allotment, and hold authorities accountable.
+
+          <!-- Editorial Headline -->
+          <h1 class="font-display max-w-3xl text-4xl sm:text-5xl md:text-6xl leading-[1.06] tracking-tight text-foreground">
+            A clearer path from <span class="text-primary">noticed</span> to <span class="text-accent italic">sorted</span>.
+          </h1>
+
+          <!-- Subtext -->
+          <p class="mt-5 max-w-2xl text-base sm:text-lg leading-relaxed text-muted-foreground" data-i18n="citizenSubtitle">
+            Mysuru Macchegalu helps citizens report what needs attention, auto-allots your MLA, MP, and Ward Engineer, and stops grievances from getting lost in Greater Mysuru expansion boundaries.
           </p>
 
-          <!-- Citizen Action Buttons & Stats Bar -->
-          <div class="flex flex-wrap items-center gap-4">
+          <!-- Action Buttons -->
+          <div class="mt-8 flex flex-wrap items-center gap-3.5">
             <button 
               id="open-complaint-modal-btn"
-              class="px-6 py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-sm flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform hover:-translate-y-0.5"
+              class="inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold bg-accent text-white shadow-lift transition-all hover:-translate-y-0.5 active:translate-y-0"
             >
-              <i data-lucide="plus-circle" class="w-5 h-5"></i>
+              <i data-lucide="plus" class="w-4 h-4"></i>
               <span data-i18n="fileComplaintBtn">Register New Complaint</span>
+              <i data-lucide="chevron-right" class="w-4 h-4 ml-0.5"></i>
             </button>
 
-            <!-- Quick Stats -->
-            <div class="flex items-center gap-6 bg-slate-900/40 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/10">
-              <div>
-                <span class="text-xs text-slate-300 block font-medium" data-i18n="activeComplaints">Active Complaints</span>
-                <span id="stat-active-count" class="text-xl font-extrabold text-amber-400">0</span>
-              </div>
-              <div class="h-7 w-px bg-white/15"></div>
-              <div>
-                <span class="text-xs text-slate-300 block font-medium" data-i18n="resolvedComplaints">Resolved Issues</span>
-                <span id="stat-resolved-count" class="text-xl font-extrabold text-emerald-400">0</span>
-              </div>
+            <button 
+              id="open-profile-hero-btn"
+              onclick="document.getElementById('open-profile-btn')?.click()"
+              class="inline-flex items-center justify-center gap-2 rounded-full px-5 py-3 text-sm font-semibold border border-border bg-card text-foreground hover:bg-muted shadow-soft transition-all hover:-translate-y-0.5 active:translate-y-0"
+            >
+              <i data-lucide="map-pin" class="w-4 h-4 text-primary"></i>
+              <span data-i18n="changeWardBtn">Update Ward / Profile</span>
+            </button>
+          </div>
+
+          <!-- Social Proof & Neighbourhood Avatars -->
+          <div class="mt-8 flex items-center gap-3 text-xs sm:text-sm text-muted-foreground">
+            <div class="flex -space-x-2">
+              <span class="grid size-8 place-items-center rounded-full border-2 border-background bg-secondary text-secondary-foreground text-xs font-bold">KR</span>
+              <span class="grid size-8 place-items-center rounded-full border-2 border-background bg-primary text-primary-foreground text-xs font-bold">CH</span>
+              <span class="grid size-8 place-items-center rounded-full border-2 border-background bg-accent text-white text-xs font-bold">NR</span>
+            </div>
+            <span>Neighbourhood accountability starts with one good report.</span>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- 3-Column Civic Highlight Feature Band -->
+      <section class="border-y border-border bg-card/60 rounded-3xl p-6 sm:p-8">
+        <div class="grid gap-6 md:grid-cols-3">
+          
+          <div class="flex gap-4">
+            <span class="grid size-11 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary">
+              <i data-lucide="file-text" class="w-5 h-5"></i>
+            </span>
+            <div>
+              <h3 class="font-semibold text-sm sm:text-base text-foreground">Report in plain language</h3>
+              <p class="mt-1 text-xs sm:text-sm leading-relaxed text-muted-foreground">A guided form maps the ward, selects the category, and collects precise landmarks.</p>
             </div>
           </div>
-        </div>
 
-        <!-- Decorative Mysore Palace Art Background Silhouette -->
-        <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-10 translate-y-10">
-          <i data-lucide="landmark" class="w-96 h-96 text-white"></i>
-        </div>
-      </div>
+          <div class="flex gap-4">
+            <span class="grid size-11 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary">
+              <i data-lucide="clock-3" class="w-5 h-5"></i>
+            </span>
+            <div>
+              <h3 class="font-semibold text-sm sm:text-base text-foreground">Critical Aging Alerts (&gt; 20 Days)</h3>
+              <p class="mt-1 text-xs sm:text-sm leading-relaxed text-muted-foreground">Unresolved grievances are flagged with pulsing alerts so complaints are never ignored.</p>
+            </div>
+          </div>
 
-      <!-- AUTO-ALLOTTED REPRESENTATIVES & OFFICIALS CARD -->
-      <div class="bg-slate-50 dark:bg-slate-900/60 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+          <div class="flex gap-4">
+            <span class="grid size-11 shrink-0 place-items-center rounded-2xl bg-primary/10 text-primary">
+              <i data-lucide="heart-handshake" class="w-5 h-5"></i>
+            </span>
+            <div>
+              <h3 class="font-semibold text-sm sm:text-base text-foreground">Influencer's Pick &amp; Voting</h3>
+              <p class="mt-1 text-xs sm:text-sm leading-relaxed text-muted-foreground">Local activists spotlight neglected emergencies and citizens crowd-vote for action.</p>
+            </div>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- AUTO-ALLOTTED ELECTED REPRESENTATIVES & WARD ENGINEERS -->
+      <section class="space-y-4">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3">
           <div>
-            <div class="flex items-center gap-2">
-              <i data-lucide="badge-check" class="w-5 h-5 text-amber-500"></i>
-              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white" data-i18n="representativeCardTitle">
-                Your Designated Elected Representatives & Ward Engineers
-              </h3>
-            </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="representativeCardDesc">
-              Automatically mapped based on your registered Ward & Locality under Greater Mysuru Corporation
-            </p>
+            <p class="text-xs font-bold uppercase tracking-[.18em] text-accent">Democracy in your pocket</p>
+            <h2 class="font-display mt-1 text-2xl sm:text-3xl tracking-tight text-foreground" data-i18n="representativeCardTitle">
+              Your Designated Elected Representatives & Ward Engineers
+            </h2>
           </div>
+          <p class="max-w-xs text-xs text-muted-foreground" data-i18n="representativeCardDesc">
+            Automatically mapped based on your registered Ward under Greater Mysuru Corporation.
+          </p>
         </div>
 
-        <!-- Dynamic Container for MP, MLA, AEE cards -->
+        <!-- Representatives Container -->
         <div id="representatives-container">
           <!-- Rendered via JS -->
         </div>
-      </div>
+      </section>
 
       <!-- INFLUENCER'S PICK COLLABORATION SECTION -->
-      <div class="space-y-5">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+      <section class="space-y-5 pt-4">
+        <div class="flex flex-col sm:flex-row sm:items-end justify-between gap-3 border-b border-border pb-4">
           <div>
-            <div class="flex items-center gap-2.5">
-              <span class="p-1.5 rounded-lg bg-rose-500/10 text-rose-500">
-                <i data-lucide="flame" class="w-5 h-5"></i>
-              </span>
-              <h3 class="text-xl font-extrabold text-slate-900 dark:text-white" data-i18n="influencersPickTitle">
-                Influencer's Pick
-              </h3>
-              <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300">
-                Community Spotlight
-              </span>
+            <div class="inline-flex items-center gap-2 rounded-full border border-border bg-card px-3 py-1 text-[11px] font-bold text-accent shadow-soft mb-2">
+              <i data-lucide="flame" class="w-3.5 h-3.5"></i>
+              Community Amplification
             </div>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="influencersPickSubtitle">
-              Civic activists & Mysuru influencers spotlighting neglected emergencies. Upvote to escalate community priority!
-            </p>
+            <h2 class="font-display text-2xl sm:text-3xl tracking-tight text-foreground" data-i18n="influencersPickTitle">
+              Influencer's Pick (ಪ್ರಭಾವಿಗಳ ಆಯ್ಕೆ)
+            </h2>
           </div>
+          <p class="max-w-md text-xs text-muted-foreground leading-relaxed" data-i18n="influencersPickSubtitle">
+            Civic activists & Mysuru creators spotlighting neglected emergencies. Upvote to escalate community priority!
+          </p>
         </div>
 
-        <!-- Influencer Picks Cards Grid -->
+        <!-- Influencer Picks Grid -->
         <div id="influencers-picks-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
           <!-- Rendered via JS -->
         </div>
-      </div>
+      </section>
 
-      <!-- CITIZEN'S REGISTERED COMPLAINTS & TRACKING -->
-      <div class="space-y-6 pt-4">
-        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+      <!-- CITIZEN GRIEVANCE TRACKER & FEED -->
+      <section class="space-y-5 pt-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-border pb-4">
           <div>
-            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white" data-i18n="recentComplaintsTitle">
+            <p class="text-xs font-bold uppercase tracking-[.18em] text-primary">Public Record</p>
+            <h2 class="font-display mt-1 text-2xl sm:text-3xl tracking-tight text-foreground" data-i18n="recentComplaintsTitle">
               My Registered Complaints
-            </h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Track resolution milestones, assigned field officers, and time deadlines.
-            </p>
+            </h2>
           </div>
 
-          <!-- Citizen Filter Tabs -->
-          <div class="flex items-center gap-1.5 bg-slate-200/70 dark:bg-slate-800 p-1 rounded-xl text-xs font-semibold overflow-x-auto">
-            <button class="citizen-filter-tab px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold transition" data-status="ALL" data-i18n="statusAll">
-              All Complaints
+          <!-- Citizen Filter Pills -->
+          <div class="flex items-center gap-1.5 rounded-full border border-border bg-card p-1 shadow-soft text-xs font-semibold overflow-x-auto">
+            <button class="citizen-filter-tab rounded-full px-3.5 py-1.5 bg-primary text-primary-foreground font-bold transition" data-status="ALL" data-i18n="statusAll">
+              All
             </button>
-            <button class="citizen-filter-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 transition" data-status="Pending" data-i18n="statusPending">
+            <button class="citizen-filter-tab rounded-full px-3.5 py-1.5 text-muted-foreground hover:text-foreground transition" data-status="Pending" data-i18n="statusPending">
               Pending
             </button>
-            <button class="citizen-filter-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 transition" data-status="Assigned" data-i18n="statusAssigned">
+            <button class="citizen-filter-tab rounded-full px-3.5 py-1.5 text-muted-foreground hover:text-foreground transition" data-status="Assigned" data-i18n="statusAssigned">
               Officer Allotted
             </button>
-            <button class="citizen-filter-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 transition" data-status="Resolved" data-i18n="statusResolved">
+            <button class="citizen-filter-tab rounded-full px-3.5 py-1.5 text-muted-foreground hover:text-foreground transition" data-status="Resolved" data-i18n="statusResolved">
               Resolved
             </button>
           </div>
@@ -244,38 +309,38 @@
         <div id="citizen-complaints-container" class="space-y-4">
           <!-- Rendered via JS -->
         </div>
-      </div>
+      </section>
 
     </section>
 
     <!-- ========================================================================= -->
-    <!-- OFFICIALS PORTAL SECTION (Hidden by default, switched via tab) -->
+    <!-- SECTION: OFFICIALS PORTAL (Toggled via Role switch) -->
     <!-- ========================================================================= -->
-    <section id="official-portal-section" class="space-y-8 hidden">
+    <section id="official-portal-section" class="space-y-10 hidden">
 
-      <!-- Official Header Banner -->
-      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 border border-indigo-800/40 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+      <!-- Official Cockpit Banner -->
+      <div class="rounded-3xl border border-border bg-card p-6 sm:p-8 shadow-soft flex flex-col md:flex-row md:items-end justify-between gap-6">
         <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-bold uppercase tracking-wider mb-2">
+          <div class="inline-flex items-center gap-2 rounded-full border border-border bg-background px-3.5 py-1 text-xs font-bold text-primary mb-3">
             <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
-            Mysuru Municipal Corporation (MCC) & Legislative Monitoring
+            Mysuru Municipal Corporation (MCC) &amp; Legislative Action Center
           </div>
-          <h2 class="text-2xl sm:text-3xl font-extrabold text-white" data-i18n="officialPortalTitle">
-            Greater Mysuru Municipal & Legislative Action Center
+          <h2 class="font-display text-3xl sm:text-4xl text-foreground" data-i18n="officialPortalTitle">
+            Greater Mysuru Municipal Cockpit
           </h2>
-          <p class="text-xs sm:text-sm text-slate-300 mt-1" data-i18n="officialSubtitle">
+          <p class="text-xs sm:text-sm text-muted-foreground mt-2 max-w-xl" data-i18n="officialSubtitle">
             Official monitoring portal for MCC Commissioners, Ward Engineers, and MLA/MP Secretariats.
           </p>
         </div>
 
         <!-- Constituency Scope Filter Dropdown -->
-        <div class="bg-white/10 backdrop-blur-md p-3.5 rounded-2xl border border-white/15 min-w-[240px]">
-          <label class="block text-[11px] font-bold text-amber-400 uppercase tracking-wider mb-1" data-i18n="filterConstituency">
+        <div class="rounded-2xl border border-border bg-background p-3.5 min-w-[260px] shadow-sm">
+          <label class="block text-[11px] font-bold text-muted-foreground uppercase tracking-wider mb-1.5" data-i18n="filterConstituency">
             Filter by Constituency
           </label>
           <select 
             id="official-constituency-select" 
-            class="w-full bg-slate-900 text-white rounded-xl text-xs font-bold px-3 py-2 border border-slate-700 focus:outline-none focus:border-amber-400"
+            class="w-full bg-card text-foreground rounded-xl text-xs font-semibold px-3 py-2 border border-border focus:outline-none focus:border-primary"
           >
             <option value="ALL">All Mysuru Constituencies (ಒಟ್ಟಾರೆ)</option>
             <option value="KR">Krishnaraja (KR) - MLA T.S. Srivatsa</option>
@@ -286,97 +351,98 @@
         </div>
       </div>
 
-      <!-- OFFICIAL KPI METRICS ROW -->
+      <!-- KPI Metrics Row (Editorial Cards) -->
       <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
-        <!-- Metric: Total -->
-        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span class="text-xs font-medium text-slate-500 dark:text-slate-400 block mb-1" data-i18n="metricTotal">Total Grievances</span>
-          <span id="metric-total-val" class="text-2xl font-black text-slate-900 dark:text-white">0</span>
+        <!-- Total -->
+        <div class="rounded-2xl border border-border bg-card p-5 shadow-soft">
+          <span class="text-xs font-semibold text-muted-foreground block mb-1" data-i18n="metricTotal">Total Grievances</span>
+          <span id="metric-total-val" class="font-display text-3xl font-bold text-foreground">0</span>
         </div>
 
-        <!-- Metric: Pending -->
-        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span class="text-xs font-medium text-amber-600 dark:text-amber-400 block mb-1" data-i18n="metricPending">Pending Action</span>
-          <span id="metric-pending-val" class="text-2xl font-black text-amber-600 dark:text-amber-400">0</span>
+        <!-- Pending -->
+        <div class="rounded-2xl border border-border bg-card p-5 shadow-soft">
+          <span class="text-xs font-semibold text-accent block mb-1" data-i18n="metricPending">Pending Action</span>
+          <span id="metric-pending-val" class="font-display text-3xl font-bold text-accent">0</span>
         </div>
 
-        <!-- Metric: CRITICAL STALE > 20 DAYS (Highlight feature!) -->
-        <div class="bg-rose-50 dark:bg-rose-950/40 rounded-2xl p-5 border-2 border-rose-500/50 shadow-sm relative overflow-hidden">
+        <!-- CRITICAL STALE > 20 DAYS ALERT CARD -->
+        <div class="rounded-2xl border-2 border-destructive/60 bg-destructive/5 p-5 shadow-soft relative overflow-hidden">
           <div class="flex items-center justify-between mb-1">
-            <span class="text-xs font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1" data-i18n="metricStale">
-              <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> Stale (> 20 Days)
+            <span class="text-xs font-bold text-destructive flex items-center gap-1.5" data-i18n="metricStale">
+              <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> Stale (&gt; 20 Days)
             </span>
-            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+            <span class="size-2.5 rounded-full bg-destructive animate-ping"></span>
           </div>
-          <span id="metric-stale-val" class="text-2xl font-black text-rose-600 dark:text-rose-400">0</span>
-          <p class="text-[10px] text-rose-700/80 dark:text-rose-300 font-semibold mt-1" data-i18n="metricStaleDesc">
+          <span id="metric-stale-val" class="font-display text-3xl font-bold text-destructive">0</span>
+          <p class="text-[10px] text-destructive/80 font-bold mt-1" data-i18n="metricStaleDesc">
             Urgent Escalation Required
           </p>
         </div>
 
-        <!-- Metric: Resolved -->
-        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
-          <span class="text-xs font-medium text-emerald-600 dark:text-emerald-400 block mb-1" data-i18n="metricResolved">Successfully Resolved</span>
-          <span id="metric-resolved-val" class="text-2xl font-black text-emerald-600 dark:text-emerald-400">0</span>
+        <!-- Resolved -->
+        <div class="rounded-2xl border border-border bg-card p-5 shadow-soft">
+          <span class="text-xs font-semibold text-primary block mb-1" data-i18n="metricResolved">Successfully Resolved</span>
+          <span id="metric-resolved-val" class="font-display text-3xl font-bold text-primary">0</span>
         </div>
 
-        <!-- Metric: Rate -->
-        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm col-span-2 md:col-span-1">
-          <span class="text-xs font-medium text-slate-500 dark:text-slate-400 block mb-1" data-i18n="metricRate">Resolution Rate</span>
-          <span id="metric-rate-val" class="text-2xl font-black text-indigo-600 dark:text-indigo-400">0%</span>
+        <!-- Rate -->
+        <div class="rounded-2xl border border-border bg-card p-5 shadow-soft col-span-2 md:col-span-1">
+          <span class="text-xs font-semibold text-muted-foreground block mb-1" data-i18n="metricRate">Resolution Rate</span>
+          <span id="metric-rate-val" class="font-display text-3xl font-bold text-foreground">0%</span>
         </div>
       </div>
 
-      <!-- OFFICIAL COMPLAINTS WORKFLOW TABLE -->
-      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
-        <!-- Table Header & Filter Tabs -->
-        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <!-- Action Queue Table -->
+      <div class="rounded-3xl border border-border bg-card shadow-soft overflow-hidden">
+        
+        <div class="p-6 border-b border-border flex flex-col md:flex-row md:items-center justify-between gap-4">
           <div>
-            <h3 class="text-lg font-extrabold text-slate-900 dark:text-white" data-i18n="officialsQueueTitle">
+            <h3 class="font-display text-xl font-bold text-foreground" data-i18n="officialsQueueTitle">
               Constituency Action Queue
             </h3>
-            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
-              Review grievances, allot field engineers with name & phone, and set completion deadlines.
+            <p class="text-xs text-muted-foreground mt-0.5">
+              Review grievances, allot field engineers with name &amp; phone, and set completion deadlines.
             </p>
           </div>
 
           <!-- Official Status Filter Buttons -->
-          <div class="flex flex-wrap items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl text-xs font-semibold">
-            <button class="official-filter-tab px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold transition" data-status="ALL" data-i18n="filterAll">
+          <div class="flex flex-wrap items-center gap-1.5 rounded-full border border-border bg-background p-1 text-xs font-semibold">
+            <button class="official-filter-tab rounded-full px-3.5 py-1.5 bg-primary text-primary-foreground font-bold transition" data-status="ALL" data-i18n="filterAll">
               All
             </button>
-            <button class="official-filter-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 transition flex items-center gap-1" data-status="STALE">
-              <i data-lucide="alert-octagon" class="w-3.5 h-3.5 text-rose-500"></i>
-              <span data-i18n="filterStaleOnly">Critical (> 20 Days)</span>
+            <button class="official-filter-tab rounded-full px-3.5 py-1.5 text-muted-foreground hover:text-foreground transition flex items-center gap-1" data-status="STALE">
+              <i data-lucide="alert-octagon" class="w-3.5 h-3.5 text-destructive"></i>
+              <span data-i18n="filterStaleOnly">Critical (&gt; 20 Days)</span>
             </button>
-            <button class="official-filter-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 transition" data-status="PENDING" data-i18n="filterPending">
+            <button class="official-filter-tab rounded-full px-3.5 py-1.5 text-muted-foreground hover:text-foreground transition" data-status="PENDING" data-i18n="filterPending">
               Pending
             </button>
-            <button class="official-filter-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 transition" data-status="RESOLVED" data-i18n="filterResolved">
+            <button class="official-filter-tab rounded-full px-3.5 py-1.5 text-muted-foreground hover:text-foreground transition" data-status="RESOLVED" data-i18n="filterResolved">
               Resolved
             </button>
           </div>
         </div>
 
-        <!-- Responsive Table Container -->
+        <!-- Table Container -->
         <div class="overflow-x-auto">
           <table class="w-full text-left text-xs">
-            <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase tracking-wider text-[11px] font-bold border-b border-slate-200 dark:border-slate-800">
+            <thead class="bg-muted/40 text-muted-foreground uppercase tracking-wider text-[11px] font-bold border-b border-border">
               <tr>
                 <th class="py-3.5 px-4" data-i18n="tableColId">Complaint ID</th>
-                <th class="py-3.5 px-4" data-i18n="tableColIssue">Issue & Category</th>
+                <th class="py-3.5 px-4" data-i18n="tableColIssue">Issue &amp; Category</th>
                 <th class="py-3.5 px-4" data-i18n="tableColWard">Ward / Area</th>
                 <th class="py-3.5 px-4" data-i18n="tableColAge">Age (Days)</th>
                 <th class="py-3.5 px-4" data-i18n="tableColStatus">Current Status</th>
-                <th class="py-3.5 px-4" data-i18n="tableColOfficer">Assigned Officer & Deadline</th>
+                <th class="py-3.5 px-4" data-i18n="tableColOfficer">Assigned Officer &amp; Deadline</th>
                 <th class="py-3.5 px-4 text-right" data-i18n="tableColAction">Action</th>
               </tr>
             </thead>
-            <tbody id="official-table-body" class="divide-y divide-slate-100 dark:divide-slate-800">
+            <tbody id="official-table-body" class="divide-y divide-border">
               <!-- Rendered via JS -->
             </tbody>
           </table>
         </div>
+
       </div>
 
     </section>
@@ -387,29 +453,29 @@
   <!-- MODAL: REGISTER NEW COMPLAINT (Citizen) -->
   <!-- ========================================================================= -->
   <div id="file-complaint-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay hidden">
-    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800">
+    <div class="bg-card rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-lift border border-border">
       
-      <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-6">
+      <div class="flex items-center justify-between pb-4 border-b border-border mb-6">
         <div>
-          <h3 class="text-xl font-extrabold text-slate-900 dark:text-white" data-i18n="modalTitle">
+          <h3 class="font-display text-2xl font-bold text-foreground" data-i18n="modalTitle">
             File a Public Grievance
           </h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="modalSubtitle">
+          <p class="text-xs text-muted-foreground mt-0.5" data-i18n="modalSubtitle">
             Your complaint will be automatically notified to your Ward AEE, MLA, and MP.
           </p>
         </div>
-        <button id="close-complaint-modal-btn" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-xl">
-          <i data-lucide="x" class="w-5 h-5"></i>
+        <button id="close-complaint-modal-btn" class="text-muted-foreground hover:text-foreground p-2 rounded-full border border-border hover:bg-muted">
+          <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
 
       <form id="new-complaint-form" class="space-y-4">
         <!-- Category Selection -->
         <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelCategory">
+          <label class="block text-xs font-bold text-foreground mb-1.5" data-i18n="labelCategory">
             Grievance Category
           </label>
-          <select id="complaint-category" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-amber-500 focus:outline-none" required>
+          <select id="complaint-category" class="w-full bg-background border border-border rounded-xl px-3.5 py-2.5 text-xs text-foreground font-medium focus:ring-2 focus:ring-primary focus:outline-none" required>
             <option value="Roads & Infrastructure">Roads & Infrastructure (ರಸ್ತೆ ಮತ್ತು ಗುಂಡಿಗಳು)</option>
             <option value="Sewage & Drainage">Sewage & Drainage (ಒಳಚರಂಡಿ ಮತ್ತು ನೈರ್ಮಲ್ಯ)</option>
             <option value="Drinking Water">Drinking Water (ಕುಡಿಯುವ ನೀರು ಸರಬರಾಜು)</option>
@@ -422,13 +488,13 @@
 
         <!-- Issue Headline -->
         <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelTitle">
+          <label class="block text-xs font-bold text-foreground mb-1.5" data-i18n="labelTitle">
             Issue Headline / Summary
           </label>
           <input 
             type="text" 
             id="complaint-title" 
-            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+            class="w-full bg-background border border-border rounded-xl px-3.5 py-2.5 text-xs text-foreground focus:ring-2 focus:ring-primary focus:outline-none" 
             placeholder="e.g., Massive pothole near 8th Main signal causing accidents"
             data-i18n-placeholder="titlePlaceholder"
             required
@@ -438,22 +504,22 @@
         <!-- Ward Number (Auto mapping) -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelWard">
+            <label class="block text-xs font-bold text-foreground mb-1.5" data-i18n="labelWard">
               Select Ward Number
             </label>
-            <select id="complaint-ward" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-amber-500 focus:outline-none" required>
+            <select id="complaint-ward" class="w-full bg-background border border-border rounded-xl px-3.5 py-2.5 text-xs text-foreground font-medium focus:ring-2 focus:ring-primary focus:outline-none" required>
               <!-- Populated via JS -->
             </select>
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelAddress">
+            <label class="block text-xs font-bold text-foreground mb-1.5" data-i18n="labelAddress">
               Specific Address / Landmark
             </label>
             <input 
               type="text" 
               id="complaint-address" 
-              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+              class="w-full bg-background border border-border rounded-xl px-3.5 py-2.5 text-xs text-foreground focus:ring-2 focus:ring-primary focus:outline-none" 
               placeholder="e.g., In front of Post Office, 3rd Cross"
               data-i18n-placeholder="addressPlaceholder"
               required
@@ -463,13 +529,13 @@
 
         <!-- Description -->
         <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelDescription">
+          <label class="block text-xs font-bold text-foreground mb-1.5" data-i18n="labelDescription">
             Detailed Description of the Problem
           </label>
           <textarea 
             id="complaint-description" 
             rows="3" 
-            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none leading-relaxed" 
+            class="w-full bg-background border border-border rounded-xl px-3.5 py-2.5 text-xs text-foreground focus:ring-2 focus:ring-primary focus:outline-none leading-relaxed" 
             placeholder="Describe how long this issue has persisted, how it affects residents, and specific hazards..."
             data-i18n-placeholder="descPlaceholder"
             required
@@ -477,44 +543,44 @@
         </div>
 
         <!-- Citizen Name & Mobile -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 border-t border-slate-100 dark:border-slate-800">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-border">
           <div>
-            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelCitizenName">
+            <label class="block text-xs font-bold text-foreground mb-1.5" data-i18n="labelCitizenName">
               Your Full Name
             </label>
             <input 
               type="text" 
               id="complaint-citizen-name" 
-              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+              class="w-full bg-background border border-border rounded-xl px-3.5 py-2 text-xs text-foreground focus:ring-2 focus:ring-primary focus:outline-none" 
               required
             />
           </div>
           <div>
-            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelCitizenPhone">
+            <label class="block text-xs font-bold text-foreground mb-1.5" data-i18n="labelCitizenPhone">
               Your Mobile Number (for SMS tracking)
             </label>
             <input 
               type="tel" 
               id="complaint-citizen-phone" 
-              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+              class="w-full bg-background border border-border rounded-xl px-3.5 py-2 text-xs text-foreground focus:ring-2 focus:ring-primary focus:outline-none" 
               required
             />
           </div>
         </div>
 
-        <!-- Submit & Actions -->
+        <!-- Submit Actions -->
         <div class="pt-4 flex items-center justify-end gap-3">
           <button 
             type="button" 
             onclick="document.getElementById('close-complaint-modal-btn').click()" 
-            class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            class="rounded-full px-5 py-2.5 border border-border text-xs font-bold text-foreground hover:bg-muted transition"
             data-i18n="cancelBtn"
           >
             Cancel
           </button>
           <button 
             type="submit" 
-            class="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold shadow-md transition"
+            class="rounded-full px-6 py-2.5 bg-accent hover:bg-accent/90 text-white text-xs font-bold shadow-lift transition hover:-translate-y-0.5"
             data-i18n="submitComplaintBtn"
           >
             Submit Complaint to MCC
@@ -529,38 +595,38 @@
   <!-- MODAL: ALLOT OFFICER & SET DEADLINE (Officials) -->
   <!-- ========================================================================= -->
   <div id="assign-officer-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay hidden">
-    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800">
+    <div class="bg-card rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-lift border border-border">
       
-      <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-4">
+      <div class="flex items-center justify-between pb-4 border-b border-border mb-4">
         <div>
-          <h3 class="text-lg font-extrabold text-slate-900 dark:text-white" data-i18n="assignModalTitle">
+          <h3 class="font-display text-xl font-bold text-foreground" data-i18n="assignModalTitle">
             Allot Field Officer & Set Deadline
           </h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="assignModalSubtitle">
+          <p class="text-xs text-muted-foreground mt-0.5" data-i18n="assignModalSubtitle">
             Provide mandatory officer contact data and time allotted for completion.
           </p>
         </div>
-        <button id="close-assign-modal-btn" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-xl">
-          <i data-lucide="x" class="w-5 h-5"></i>
+        <button id="close-assign-modal-btn" class="text-muted-foreground hover:text-foreground p-2 rounded-full border border-border hover:bg-muted">
+          <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
 
       <!-- Complaint Info Badge -->
-      <div class="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/40 rounded-xl p-3 mb-4">
-        <span class="text-[10px] font-mono font-bold text-amber-800 dark:text-amber-400 block" id="assign-complaint-id-display">MMC-2024-0000</span>
-        <h5 class="text-xs font-bold text-slate-900 dark:text-white truncate" id="assign-complaint-title-display">Grievance Headline</h5>
+      <div class="bg-muted/50 border border-border rounded-xl p-3 mb-4">
+        <span class="text-[10px] font-mono font-bold text-primary block" id="assign-complaint-id-display">MMC-2024-0000</span>
+        <h5 class="text-xs font-bold text-foreground truncate mt-0.5" id="assign-complaint-title-display">Grievance Headline</h5>
       </div>
 
       <form id="assign-officer-form" class="space-y-3.5">
         <!-- Officer Name -->
         <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelOfficerName">
+          <label class="block text-xs font-bold text-foreground mb-1" data-i18n="labelOfficerName">
             Designated Field Officer Name
           </label>
           <input 
             type="text" 
             id="assign-officer-name" 
-            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+            class="w-full bg-background border border-border rounded-xl px-3.5 py-2 text-xs text-foreground font-medium focus:ring-2 focus:ring-primary focus:outline-none" 
             placeholder="e.g., M. N. Srinivas (AEE Civil)"
             required
           />
@@ -569,26 +635,26 @@
         <!-- Officer Phone & Department -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelOfficerPhone">
+            <label class="block text-xs font-bold text-foreground mb-1" data-i18n="labelOfficerPhone">
               Officer Official Mobile Number
             </label>
             <input 
               type="tel" 
               id="assign-officer-phone" 
-              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-mono focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+              class="w-full bg-background border border-border rounded-xl px-3.5 py-2 text-xs text-foreground font-mono focus:ring-2 focus:ring-primary focus:outline-none" 
               placeholder="+91 94808 33402"
               required
             />
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelOfficerDept">
+            <label class="block text-xs font-bold text-foreground mb-1" data-i18n="labelOfficerDept">
               Department / Section
             </label>
             <input 
               type="text" 
               id="assign-officer-dept" 
-              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+              class="w-full bg-background border border-border rounded-xl px-3.5 py-2 text-xs text-foreground focus:ring-2 focus:ring-primary focus:outline-none" 
               placeholder="e.g., MCC Zone 5 Engineering"
               required
             />
@@ -598,22 +664,22 @@
         <!-- Deadline & Status -->
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
           <div>
-            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelDeadline">
+            <label class="block text-xs font-bold text-foreground mb-1" data-i18n="labelDeadline">
               Allotted Completion Deadline Date
             </label>
             <input 
               type="date" 
               id="assign-deadline" 
-              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+              class="w-full bg-background border border-border rounded-xl px-3.5 py-2 text-xs text-foreground font-semibold focus:ring-2 focus:ring-primary focus:outline-none" 
               required
             />
           </div>
 
           <div>
-            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelStatus">
+            <label class="block text-xs font-bold text-foreground mb-1" data-i18n="labelStatus">
               Update Status
             </label>
-            <select id="assign-status" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <select id="assign-status" class="w-full bg-background border border-border rounded-xl px-3.5 py-2 text-xs text-foreground font-semibold focus:ring-2 focus:ring-primary focus:outline-none">
               <option value="Assigned">Officer Allotted (ನಿಯೋಜಿಸಲಾಗಿದೆ)</option>
               <option value="In_Progress">In Progress (ಪ್ರಗತಿಯಲ್ಲಿದೆ)</option>
               <option value="Resolved">Resolved (ಪರಿಹರಿಸಲಾಗಿದೆ)</option>
@@ -621,16 +687,16 @@
           </div>
         </div>
 
-        <!-- Notes / Action plan -->
+        <!-- Notes -->
         <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelInternalNotes">
+          <label class="block text-xs font-bold text-foreground mb-1" data-i18n="labelInternalNotes">
             Action Plan / Work Order Notes
           </label>
           <textarea 
             id="assign-notes" 
             rows="2" 
-            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
-            placeholder="e.g., Jetting machine scheduled for clearance..."
+            class="w-full bg-background border border-border rounded-xl px-3.5 py-2 text-xs text-foreground focus:ring-2 focus:ring-primary focus:outline-none" 
+            placeholder="e.g., Jetting suction unit dispatched; asphalt batch mix ordered."
           ></textarea>
         </div>
 
@@ -639,17 +705,17 @@
           <button 
             type="button" 
             onclick="document.getElementById('close-assign-modal-btn').click()" 
-            class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            class="rounded-full px-4 py-2 border border-border text-xs font-bold text-foreground hover:bg-muted transition"
             data-i18n="cancelBtn"
           >
             Cancel
           </button>
           <button 
             type="submit" 
-            class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold shadow-md transition"
+            class="rounded-full px-5 py-2 bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-bold shadow-soft transition hover:-translate-y-0.5"
             data-i18n="saveAllotmentBtn"
           >
-            Confirm Allotment & Notify Citizen
+            Confirm Allotment &amp; Notify Citizen
           </button>
         </div>
       </form>
@@ -661,64 +727,64 @@
   <!-- MODAL: UPDATE CITIZEN WARD / PROFILE -->
   <!-- ========================================================================= -->
   <div id="update-profile-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay hidden">
-    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800">
+    <div class="bg-card rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-lift border border-border">
       
-      <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-5">
+      <div class="flex items-center justify-between pb-4 border-b border-border mb-5">
         <div>
-          <h3 class="text-lg font-extrabold text-slate-900 dark:text-white" data-i18n="profileModalTitle">
-            Update Your Citizen Ward & Address
+          <h3 class="font-display text-xl font-bold text-foreground" data-i18n="profileModalTitle">
+            Update Your Citizen Ward &amp; Address
           </h3>
-          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="profileModalSubtitle">
+          <p class="text-xs text-muted-foreground mt-0.5" data-i18n="profileModalSubtitle">
             Setting your ward accurately connects you with your local MLA and Ward Engineer.
           </p>
         </div>
-        <button id="close-profile-modal-btn" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-xl">
-          <i data-lucide="x" class="w-5 h-5"></i>
+        <button id="close-profile-modal-btn" class="text-muted-foreground hover:text-foreground p-2 rounded-full border border-border hover:bg-muted">
+          <i data-lucide="x" class="w-4 h-4"></i>
         </button>
       </div>
 
       <form id="update-profile-form" class="space-y-4">
         <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelCitizenName">
+          <label class="block text-xs font-bold text-foreground mb-1.5" data-i18n="labelCitizenName">
             Full Name
           </label>
           <input 
             type="text" 
             id="profile-name" 
-            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+            class="w-full bg-background border border-border rounded-xl px-3.5 py-2.5 text-xs text-foreground font-medium focus:ring-2 focus:ring-primary focus:outline-none" 
             required
           />
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelCitizenPhone">
+          <label class="block text-xs font-bold text-foreground mb-1.5" data-i18n="labelCitizenPhone">
             Mobile Number
           </label>
           <input 
             type="tel" 
             id="profile-phone" 
-            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white font-mono focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+            class="w-full bg-background border border-border rounded-xl px-3.5 py-2.5 text-xs text-foreground font-mono focus:ring-2 focus:ring-primary focus:outline-none" 
             required
           />
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelWard">
-            Your Ward (Auto-Allots MLA & MP)
+          <label class="block text-xs font-bold text-foreground mb-1.5" data-i18n="labelWard">
+            Your Ward (Auto-Allots MLA &amp; MP)
           </label>
-          <select id="profile-ward" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-amber-500 focus:outline-none">
+          <select id="profile-ward" class="w-full bg-background border border-border rounded-xl px-3.5 py-2.5 text-xs text-foreground font-semibold focus:ring-2 focus:ring-primary focus:outline-none">
             <!-- Populated via JS -->
           </select>
         </div>
 
         <div>
-          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelAddress">
+          <label class="block text-xs font-bold text-foreground mb-1.5" data-i18n="labelAddress">
             Residential Address / Locality
           </label>
           <input 
             type="text" 
             id="profile-address" 
-            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+            class="w-full bg-background border border-border rounded-xl px-3.5 py-2.5 text-xs text-foreground focus:ring-2 focus:ring-primary focus:outline-none" 
             required
           />
         </div>
@@ -727,17 +793,17 @@
           <button 
             type="button" 
             onclick="document.getElementById('close-profile-modal-btn').click()" 
-            class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            class="rounded-full px-4 py-2 border border-border text-xs font-bold text-foreground hover:bg-muted transition"
             data-i18n="cancelBtn"
           >
             Cancel
           </button>
           <button 
             type="submit" 
-            class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold shadow-md transition"
+            class="rounded-full px-5 py-2.5 bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-bold shadow-soft transition hover:-translate-y-0.5"
             data-i18n="saveProfileBtn"
           >
-            Save & Auto-Map Representatives
+            Save &amp; Auto-Map Representatives
           </button>
         </div>
       </form>
@@ -746,17 +812,20 @@
   </div>
 
   <!-- TOAST NOTIFICATION -->
-  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 text-xs font-bold flex items-center gap-2 transform transition duration-300 hidden translate-y-10 opacity-0">
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-foreground text-background px-5 py-3 rounded-full shadow-lift border border-border text-xs font-bold flex items-center gap-2 transform transition duration-300 hidden translate-y-10 opacity-0">
     Notification message
   </div>
 
+  <!-- ========================================================================= -->
   <!-- FOOTER -->
-  <footer class="border-t border-slate-200 dark:border-slate-800 py-8 bg-white dark:bg-slate-950 mt-16 transition-colors">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
-      <p class="text-xs font-semibold text-slate-700 dark:text-slate-300" data-i18n="footerGovtNote">
-        Greater Mysuru Public Accountability & Transparency Framework
-      </p>
-      <p class="text-[11px] text-slate-500 dark:text-slate-500" data-i18n="footerCopyright">
+  <!-- ========================================================================= -->
+  <footer class="border-t border-border py-12 bg-card/40 mt-20 transition-colors">
+    <div class="mx-auto max-w-6xl px-5 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs text-muted-foreground">
+      <div class="flex items-center gap-2">
+        <span class="grid size-6 place-items-center rounded-lg bg-primary text-primary-foreground text-xs font-bold">M</span>
+        <strong class="text-foreground">Mysuru Macchegalu</strong> — <span data-i18n="footerGovtNote">Greater Mysuru Public Accountability &amp; Transparency Framework</span>
+      </div>
+      <p class="text-[11px]" data-i18n="footerCopyright">
         Mysuru Macchegalu © 2026. Empowering citizens through open civic engagement.
       </p>
     </div>

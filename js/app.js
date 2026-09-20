@@ -6,7 +6,7 @@ const { TRANSLATIONS } = window.MMC_I18N;
 // Application State
 const state = {
   lang: localStorage.getItem('mmc_lang') || 'en',
-  theme: localStorage.getItem('mmc_theme') || 'dark',
+  theme: localStorage.getItem('mmc_theme') || 'light', // default to light for the warm linen aesthetic
   role: localStorage.getItem('mmc_role') || 'citizen', // 'citizen' | 'official'
   officialConstituencyFilter: 'ALL',
   officialStatusFilter: 'ALL', // 'ALL' | 'STALE' | 'PENDING' | 'RESOLVED'
@@ -128,21 +128,21 @@ function setRole(role) {
   const officialSection = document.getElementById('official-portal-section');
   
   if (role === 'citizen') {
-    citizenBtn.classList.add('bg-amber-500', 'text-slate-900', 'shadow-md');
-    citizenBtn.classList.remove('text-slate-400', 'hover:text-slate-200');
-    officialBtn.classList.remove('bg-amber-500', 'text-slate-900', 'shadow-md');
-    officialBtn.classList.add('text-slate-400', 'hover:text-slate-200');
+    citizenBtn?.classList.add('bg-primary', 'text-primary-foreground', 'shadow-soft');
+    citizenBtn?.classList.remove('text-muted-foreground');
+    officialBtn?.classList.remove('bg-primary', 'text-primary-foreground', 'shadow-soft');
+    officialBtn?.classList.add('text-muted-foreground');
     
-    citizenSection.classList.remove('hidden');
-    officialSection.classList.add('hidden');
+    citizenSection?.classList.remove('hidden');
+    officialSection?.classList.add('hidden');
   } else {
-    officialBtn.classList.add('bg-amber-500', 'text-slate-900', 'shadow-md');
-    officialBtn.classList.remove('text-slate-400', 'hover:text-slate-200');
-    citizenBtn.classList.remove('bg-amber-500', 'text-slate-900', 'shadow-md');
-    citizenBtn.classList.add('text-slate-400', 'hover:text-slate-200');
+    officialBtn?.classList.add('bg-primary', 'text-primary-foreground', 'shadow-soft');
+    officialBtn?.classList.remove('text-muted-foreground');
+    citizenBtn?.classList.remove('bg-primary', 'text-primary-foreground', 'shadow-soft');
+    citizenBtn?.classList.add('text-muted-foreground');
     
-    officialSection.classList.remove('hidden');
-    citizenSection.classList.add('hidden');
+    officialSection?.classList.remove('hidden');
+    citizenSection?.classList.add('hidden');
   }
   
   renderAll();
@@ -181,7 +181,7 @@ function getWardDetails(wardNo) {
   };
 }
 
-// Render Representatives Card for Citizen
+// Render Representatives Card for Citizen (CivicTrack Editorial Style)
 function renderRepresentativesCard() {
   const container = document.getElementById('representatives-container');
   if (!container) return;
@@ -191,72 +191,95 @@ function renderRepresentativesCard() {
   const t = TRANSLATIONS[state.lang];
 
   container.innerHTML = `
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      
       <!-- Member of Parliament -->
-      <div class="bg-white/80 dark:bg-slate-800/80 rounded-xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm transition hover:shadow-md">
-        <div class="flex items-center gap-3 mb-3">
-          <div class="w-12 h-12 rounded-full bg-amber-500/20 text-amber-500 flex items-center justify-center font-bold text-lg">
-            MP
+      <div class="rounded-3xl border border-border bg-card p-6 shadow-soft hover-lift flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="grid size-11 place-items-center rounded-2xl bg-primary/10 text-primary font-bold text-sm">
+              MP
+            </span>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-accent block">${t.mpLabel}</span>
+              <h4 class="font-display text-base font-bold text-foreground leading-snug">${isKn ? mp.name_kn : mp.name}</h4>
+            </div>
           </div>
-          <div>
-            <span class="text-xs font-semibold text-amber-600 dark:text-amber-400 uppercase tracking-wider block">${t.mpLabel}</span>
-            <h4 class="text-base font-bold text-slate-900 dark:text-white leading-snug">${isKn ? mp.name_kn : mp.name}</h4>
+          <div class="text-xs space-y-2 text-muted-foreground border-t border-border/60 pt-4">
+            <p class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-primary"></i> ${isKn ? mp.constituency_kn : mp.constituency}</p>
+            <p class="flex items-center gap-2 truncate"><i data-lucide="building-2" class="w-3.5 h-3.5 text-primary"></i> ${mp.office}</p>
           </div>
         </div>
-        <div class="text-xs space-y-1.5 text-slate-600 dark:text-slate-300 border-t border-slate-100 dark:border-slate-700/60 pt-3">
-          <p class="flex items-center gap-2"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500"></i> ${isKn ? mp.constituency_kn : mp.constituency}</p>
-          <p class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-amber-500"></i> <a href="tel:${mp.phone}" class="hover:underline font-medium text-slate-800 dark:text-slate-200">${mp.phone}</a></p>
-          <p class="flex items-center gap-2 truncate"><i data-lucide="building-2" class="w-3.5 h-3.5 text-amber-500"></i> ${mp.office}</p>
+        <div class="mt-5 pt-3 border-t border-border/40 flex items-center justify-between">
+          <span class="text-xs font-mono text-foreground font-semibold">${mp.phone}</span>
+          <a href="tel:${mp.phone}" class="rounded-full px-3.5 py-1.5 bg-primary/10 hover:bg-primary text-primary hover:text-primary-foreground text-xs font-bold transition flex items-center gap-1">
+            <i data-lucide="phone" class="w-3 h-3"></i> Call
+          </a>
         </div>
       </div>
 
       <!-- Member of Legislative Assembly (MLA) -->
-      <div class="bg-white/80 dark:bg-slate-800/80 rounded-xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm transition hover:shadow-md">
-        <div class="flex items-center gap-3 mb-3">
-          <div class="w-12 h-12 rounded-full bg-indigo-500/20 text-indigo-500 flex items-center justify-center font-bold text-lg">
-            MLA
+      <div class="rounded-3xl border border-border bg-card p-6 shadow-soft hover-lift flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="grid size-11 place-items-center rounded-2xl bg-accent/15 text-accent font-bold text-sm">
+              MLA
+            </span>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-accent block">${t.mlaLabel}</span>
+              <h4 class="font-display text-base font-bold text-foreground leading-snug">${isKn ? constituency.mla_kn : constituency.mla}</h4>
+            </div>
           </div>
-          <div>
-            <span class="text-xs font-semibold text-indigo-600 dark:text-indigo-400 uppercase tracking-wider block">${t.mlaLabel}</span>
-            <h4 class="text-base font-bold text-slate-900 dark:text-white leading-snug">${isKn ? constituency.mla_kn : constituency.mla}</h4>
+          <div class="text-xs space-y-2 text-muted-foreground border-t border-border/60 pt-4">
+            <p class="flex items-center gap-2 text-foreground font-medium"><i data-lucide="shield" class="w-3.5 h-3.5 text-accent"></i> ${isKn ? constituency.name_kn : constituency.name} Assembly</p>
+            <p class="flex items-center gap-2 truncate"><i data-lucide="landmark" class="w-3.5 h-3.5 text-accent"></i> ${constituency.mlaOffice}</p>
           </div>
         </div>
-        <div class="text-xs space-y-1.5 text-slate-600 dark:text-slate-300 border-t border-slate-100 dark:border-slate-700/60 pt-3">
-          <p class="flex items-center gap-2 font-medium text-indigo-600 dark:text-indigo-300"><i data-lucide="shield" class="w-3.5 h-3.5"></i> ${isKn ? constituency.name_kn : constituency.name} Assembly</p>
-          <p class="flex items-center gap-2"><i data-lucide="phone" class="w-3.5 h-3.5 text-indigo-500"></i> <a href="tel:${constituency.mlaPhone}" class="hover:underline font-medium text-slate-800 dark:text-slate-200">${constituency.mlaPhone}</a></p>
-          <p class="flex items-center gap-2 truncate"><i data-lucide="landmark" class="w-3.5 h-3.5 text-indigo-500"></i> ${constituency.mlaOffice}</p>
+        <div class="mt-5 pt-3 border-t border-border/40 flex items-center justify-between">
+          <span class="text-xs font-mono text-foreground font-semibold">${constituency.mlaPhone}</span>
+          <a href="tel:${constituency.mlaPhone}" class="rounded-full px-3.5 py-1.5 bg-accent/15 hover:bg-accent text-accent hover:text-white text-xs font-bold transition flex items-center gap-1">
+            <i data-lucide="phone" class="w-3 h-3"></i> Call
+          </a>
         </div>
       </div>
 
       <!-- Ward Assistant Executive Engineer (AEE) -->
-      <div class="bg-white/80 dark:bg-slate-800/80 rounded-xl p-5 border border-slate-200 dark:border-slate-700 shadow-sm transition hover:shadow-md">
-        <div class="flex items-center gap-3 mb-3">
-          <div class="w-12 h-12 rounded-full bg-emerald-500/20 text-emerald-500 flex items-center justify-center font-bold text-lg">
-            AEE
+      <div class="rounded-3xl border border-border bg-card p-6 shadow-soft hover-lift flex flex-col justify-between">
+        <div>
+          <div class="flex items-center gap-3 mb-4">
+            <span class="grid size-11 place-items-center rounded-2xl bg-secondary text-secondary-foreground font-bold text-sm">
+              AEE
+            </span>
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-primary block">${t.aeeLabel}</span>
+              <h4 class="font-display text-base font-bold text-foreground leading-snug">${ward.aeeName}</h4>
+            </div>
           </div>
-          <div>
-            <span class="text-xs font-semibold text-emerald-600 dark:text-emerald-400 uppercase tracking-wider block">${t.aeeLabel}</span>
-            <h4 class="text-base font-bold text-slate-900 dark:text-white leading-snug">${ward.aeeName}</h4>
+          <div class="text-xs space-y-2 text-muted-foreground border-t border-border/60 pt-4">
+            <p class="flex items-center gap-2 text-foreground font-medium"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-primary"></i> Ward ${ward.wardNo}: ${isKn ? ward.name_kn : ward.name}</p>
+            <p class="flex items-center gap-2"><i data-lucide="building" class="w-3.5 h-3.5 text-primary"></i> Mysuru City Corporation (MCC)</p>
           </div>
         </div>
-        <div class="text-xs space-y-1.5 text-slate-600 dark:text-slate-300 border-t border-slate-100 dark:border-slate-700/60 pt-3">
-          <p class="flex items-center gap-2 font-medium text-emerald-600 dark:text-emerald-400"><i data-lucide="map-pin" class="w-3.5 h-3.5"></i> Ward ${ward.wardNo}: ${isKn ? ward.name_kn : ward.name}</p>
-          <p class="flex items-center gap-2"><i data-lucide="phone-call" class="w-3.5 h-3.5 text-emerald-500"></i> <a href="tel:${ward.aeePhone}" class="hover:underline font-bold text-emerald-600 dark:text-emerald-300">${ward.aeePhone}</a></p>
-          <p class="flex items-center gap-2"><i data-lucide="building" class="w-3.5 h-3.5 text-emerald-500"></i> Mysuru City Corporation (MCC)</p>
+        <div class="mt-5 pt-3 border-t border-border/40 flex items-center justify-between">
+          <span class="text-xs font-mono text-foreground font-semibold">${ward.aeePhone}</span>
+          <a href="tel:${ward.aeePhone}" class="rounded-full px-3.5 py-1.5 bg-primary hover:bg-primary/90 text-primary-foreground text-xs font-bold transition flex items-center gap-1 shadow-soft">
+            <i data-lucide="phone-call" class="w-3 h-3"></i> Direct
+          </a>
         </div>
       </div>
+
     </div>
 
     <!-- Active Profile Sub-bar -->
-    <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-700 flex flex-wrap items-center justify-between gap-3 text-xs text-slate-600 dark:text-slate-400">
-      <div class="flex items-center gap-2">
-        <span class="w-2.5 h-2.5 rounded-full bg-emerald-500 inline-block animate-ping"></span>
-        <span>${isKn ? 'ನೋಂದಾಯಿತ ನಾಗರಿಕರು' : 'Logged in Citizen'}: <strong class="text-slate-900 dark:text-white">${state.userProfile.name}</strong> (${state.userProfile.phone})</span>
-        <span class="text-slate-400">|</span>
-        <span>${state.userProfile.address}</span>
+    <div class="mt-4 rounded-2xl border border-border bg-card/60 px-5 py-3.5 flex flex-wrap items-center justify-between gap-3 text-xs text-muted-foreground shadow-soft">
+      <div class="flex items-center gap-2.5">
+        <span class="size-2.5 rounded-full bg-emerald-500 inline-block animate-pulse"></span>
+        <span>${isKn ? 'ನೋಂದಾಯಿತ ನಾಗರಿಕರು' : 'Logged in Resident'}: <strong class="text-foreground">${state.userProfile.name}</strong> (${state.userProfile.phone})</span>
+        <span class="text-border">|</span>
+        <span class="truncate max-w-sm">${state.userProfile.address}</span>
       </div>
-      <button id="open-profile-btn" class="text-amber-600 dark:text-amber-400 hover:underline font-semibold flex items-center gap-1">
-        <i data-lucide="edit-3" class="w-3.5 h-3.5"></i>
+      <button id="open-profile-btn" class="rounded-full px-3.5 py-1 border border-border bg-card text-foreground hover:bg-muted text-xs font-bold flex items-center gap-1.5 transition">
+        <i data-lucide="edit-3" class="w-3 h-3 text-accent"></i>
         ${t.changeWardBtn}
       </button>
     </div>
@@ -266,7 +289,7 @@ function renderRepresentativesCard() {
   initLucideIcons();
 }
 
-// Render Influencer's Pick Section
+// Render Influencer's Pick Section (CivicTrack Editorial Magazine Style)
 function renderInfluencerPicks() {
   const container = document.getElementById('influencers-picks-container');
   if (!container) return;
@@ -280,57 +303,58 @@ function renderInfluencerPicks() {
     const isStale = pick.urgencyDays >= 20;
 
     return `
-      <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm hover:shadow-lg transition flex flex-col justify-between">
+      <div class="rounded-3xl border border-border bg-card p-6 shadow-soft hover-lift flex flex-col justify-between">
         <div>
-          <!-- Influencer Meta -->
-          <div class="flex items-center justify-between mb-4">
+          <!-- Influencer Header -->
+          <div class="flex items-center justify-between gap-2 mb-4">
             <div class="flex items-center gap-3">
-              <div class="w-10 h-10 rounded-full bg-gradient-to-tr from-amber-500 to-rose-500 text-white flex items-center justify-center font-extrabold text-sm shadow-sm">
+              <span class="grid size-10 place-items-center rounded-2xl bg-secondary text-secondary-foreground font-extrabold text-xs">
                 ${pick.influencerHandle.substring(1, 3).toUpperCase()}
-              </div>
+              </span>
               <div>
-                <h5 class="text-sm font-bold text-slate-900 dark:text-white leading-none">${isKn ? pick.influencerName_kn : pick.influencerName}</h5>
-                <span class="text-[11px] text-amber-600 dark:text-amber-400 font-medium">${isKn ? pick.badge_kn : pick.badge} • ${pick.followers}</span>
+                <h5 class="text-xs font-bold text-foreground leading-none">${isKn ? pick.influencerName_kn : pick.influencerName}</h5>
+                <span class="text-[10px] text-accent font-semibold">${isKn ? pick.badge_kn : pick.badge} • ${pick.followers}</span>
               </div>
             </div>
+
             ${isStale ? `
-              <span class="inline-flex items-center gap-1 text-[11px] font-bold px-2.5 py-1 rounded-full badge-stale badge-stale-pulse">
-                <i data-lucide="alert-triangle" class="w-3 h-3"></i> ${pick.urgencyDays} ${t.daysPending}
+              <span class="inline-flex items-center gap-1 text-[10px] font-bold px-2.5 py-0.5 rounded-full badge-stale badge-stale-pulse">
+                <i data-lucide="alert-triangle" class="w-3 h-3"></i> ${pick.urgencyDays}d
               </span>
             ` : ''}
           </div>
 
           <!-- Title & Description -->
-          <h4 class="text-base font-bold text-slate-900 dark:text-white mb-2 leading-snug">
+          <h4 class="font-display text-base font-bold text-foreground mb-2 leading-snug">
             ${isKn ? pick.title_kn : pick.title}
           </h4>
-          <p class="text-xs text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+          <p class="text-xs text-muted-foreground mb-4 leading-relaxed line-clamp-3">
             ${isKn ? pick.description_kn : pick.description}
           </p>
 
-          <!-- Hashtags & Ward Info -->
+          <!-- Ward & Tags -->
           <div class="flex flex-wrap gap-1.5 mb-4">
-            <span class="text-[10px] font-medium bg-slate-100 dark:bg-slate-700/60 text-slate-700 dark:text-slate-300 px-2 py-0.5 rounded">
+            <span class="text-[10px] font-semibold rounded-md border border-border bg-muted/40 px-2 py-0.5 text-foreground">
               Ward ${pick.wardNo} (${wardDetail.constituency.name})
             </span>
-            ${pick.tags.map(tag => `<span class="text-[10px] font-semibold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/30 px-2 py-0.5 rounded">${tag}</span>`).join('')}
+            ${pick.tags.map(tag => `<span class="text-[10px] font-semibold text-accent rounded-md border border-accent/20 bg-accent/5 px-2 py-0.5">${tag}</span>`).join('')}
           </div>
         </div>
 
-        <!-- Voting Action Footer -->
-        <div class="pt-4 border-t border-slate-100 dark:border-slate-700/60 flex items-center justify-between">
+        <!-- Voting Footer -->
+        <div class="pt-4 border-t border-border/60 flex items-center justify-between">
           <div>
-            <span class="text-lg font-extrabold text-slate-900 dark:text-white block leading-none" id="vote-count-${pick.id}">
+            <span class="font-display text-lg font-bold text-foreground block leading-none">
               ${pick.votes.toLocaleString()}
             </span>
-            <span class="text-[11px] text-slate-500 dark:text-slate-400">${t.totalInfluencerVotes}</span>
+            <span class="text-[10px] text-muted-foreground uppercase tracking-wider">${t.totalInfluencerVotes}</span>
           </div>
 
           <button 
             onclick="window.toggleUpvote('${pick.id}')"
-            class="upvote-btn px-4 py-2 rounded-xl text-xs font-bold flex items-center gap-1.5 border transition ${isUpvoted ? 'upvoted' : 'bg-slate-100 dark:bg-slate-700 text-slate-800 dark:text-slate-200 border-slate-300 dark:border-slate-600 hover:bg-rose-500 hover:text-white hover:border-rose-500'}"
+            class="upvote-btn rounded-full px-4 py-2 text-xs font-bold flex items-center gap-1.5 border transition ${isUpvoted ? 'upvoted' : 'border-border bg-card text-foreground hover:bg-accent hover:text-white hover:border-accent shadow-soft'}"
           >
-            <i data-lucide="heart" class="w-4 h-4 ${isUpvoted ? 'fill-current' : ''}"></i>
+            <i data-lucide="heart" class="w-3.5 h-3.5 ${isUpvoted ? 'fill-current' : ''}"></i>
             <span>${isUpvoted ? t.upvotedText : t.upvoteBtn}</span>
           </button>
         </div>
@@ -368,25 +392,16 @@ function renderCitizenComplaints() {
   const t = TRANSLATIONS[state.lang];
   const isKn = state.lang === 'kn';
 
-  // Filter complaints
   let list = state.complaints;
   if (state.citizenStatusFilter !== 'ALL') {
     list = list.filter(c => c.status === state.citizenStatusFilter);
   }
 
-  // Update citizen summary stats
-  const activeCount = state.complaints.filter(c => c.status !== 'Resolved').length;
-  const resolvedCount = state.complaints.filter(c => c.status === 'Resolved').length;
-  const activeEl = document.getElementById('stat-active-count');
-  const resolvedEl = document.getElementById('stat-resolved-count');
-  if (activeEl) activeEl.textContent = activeCount;
-  if (resolvedEl) resolvedEl.textContent = resolvedCount;
-
   if (list.length === 0) {
     container.innerHTML = `
-      <div class="text-center py-12 bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700">
-        <i data-lucide="inbox" class="w-10 h-10 text-slate-400 mx-auto mb-2"></i>
-        <p class="text-sm text-slate-500 dark:text-slate-400">${t.noComplaints}</p>
+      <div class="text-center py-16 rounded-3xl border border-border bg-card/60 shadow-soft">
+        <i data-lucide="inbox" class="w-8 h-8 text-muted-foreground mx-auto mb-2 opacity-60"></i>
+        <p class="text-xs text-muted-foreground font-medium">${t.noComplaints}</p>
       </div>
     `;
     initLucideIcons();
@@ -400,28 +415,29 @@ function renderCitizenComplaints() {
     const statusBadgeClass = getStatusBadgeClass(c.status);
 
     return `
-      <div class="bg-white dark:bg-slate-800 rounded-2xl border border-slate-200 dark:border-slate-700 p-6 shadow-sm transition hover:shadow-md ${isStale ? 'border-l-4 border-l-rose-500' : ''}">
+      <div class="rounded-3xl border border-border bg-card p-6 shadow-soft hover-lift ${isStale ? 'border-l-4 border-l-destructive' : ''}">
+        
         <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-3">
           <div class="flex flex-wrap items-center gap-2">
-            <span class="text-xs font-mono font-bold bg-slate-100 dark:bg-slate-700 text-slate-700 dark:text-slate-300 px-2.5 py-1 rounded">
+            <span class="text-xs font-mono font-bold rounded-full border border-border bg-background px-3 py-0.5 text-foreground">
               ${c.id}
             </span>
-            <span class="text-xs font-semibold px-2.5 py-1 rounded-full ${statusBadgeClass}">
+            <span class="text-xs font-semibold px-3 py-0.5 rounded-full ${statusBadgeClass}">
               ${getStatusName(c.status)}
             </span>
-            <span class="text-xs font-medium bg-amber-50 dark:bg-amber-950/40 text-amber-700 dark:text-amber-300 px-2.5 py-1 rounded-full">
+            <span class="text-xs font-medium rounded-full border border-border bg-muted/40 text-muted-foreground px-3 py-0.5">
               ${isKn && c.category_kn ? c.category_kn : c.category}
             </span>
           </div>
 
-          <div class="flex items-center gap-2">
+          <div>
             ${isStale ? `
               <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full badge-stale badge-stale-pulse">
                 <i data-lucide="alert-octagon" class="w-3.5 h-3.5"></i>
                 ${t.staleBadge} (${daysOld} ${isKn ? 'ದಿನಗಳು' : 'days'})
               </span>
             ` : `
-              <span class="text-xs text-slate-500 dark:text-slate-400 flex items-center gap-1">
+              <span class="text-xs text-muted-foreground flex items-center gap-1 font-medium">
                 <i data-lucide="clock" class="w-3.5 h-3.5"></i>
                 ${daysOld} ${isKn ? 'ದಿನಗಳ ಹಿಂದೆ' : 'days ago'}
               </span>
@@ -429,66 +445,62 @@ function renderCitizenComplaints() {
           </div>
         </div>
 
-        <h4 class="text-base font-bold text-slate-900 dark:text-white mb-2">
+        <h4 class="font-display text-lg font-bold text-foreground mb-1.5 leading-snug">
           ${isKn && c.title_kn ? c.title_kn : c.title}
         </h4>
-        <p class="text-xs text-slate-600 dark:text-slate-300 mb-4 leading-relaxed">
+        <p class="text-xs text-muted-foreground mb-4 leading-relaxed">
           ${isKn && c.description_kn ? c.description_kn : c.description}
         </p>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-900/50 p-4 rounded-xl mb-4 border border-slate-100 dark:border-slate-800">
+        <!-- Location & Representative Details Bar -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-xs rounded-2xl border border-border bg-background/50 p-3.5 mb-4">
           <div>
-            <p class="font-semibold text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-1.5">
-              <i data-lucide="map-pin" class="w-3.5 h-3.5 text-amber-500"></i> ${t.labelAddress}:
-            </p>
-            <p>${c.address}, Ward ${c.wardNo} (${wardDetail.constituency.name})</p>
+            <span class="font-semibold text-foreground flex items-center gap-1 mb-0.5">
+              <i data-lucide="map-pin" class="w-3 h-3 text-primary"></i> ${t.labelAddress}:
+            </span>
+            <p class="text-muted-foreground">${c.address}, Ward ${c.wardNo} (${wardDetail.constituency.name})</p>
           </div>
           <div>
-            <p class="font-semibold text-slate-800 dark:text-slate-200 mb-1 flex items-center gap-1.5">
-              <i data-lucide="landmark" class="w-3.5 h-3.5 text-indigo-500"></i> ${isKn ? 'ಸಂಬಂಧಿತ ಶಾಸಕರು' : 'Concerned MLA'}:
-            </p>
-            <p>${wardDetail.constituency.mla} (${wardDetail.constituency.name})</p>
+            <span class="font-semibold text-foreground flex items-center gap-1 mb-0.5">
+              <i data-lucide="landmark" class="w-3 h-3 text-accent"></i> ${isKn ? 'ಸಂಬಂಧಿತ ಶಾಸಕರು' : 'Concerned MLA'}:
+            </span>
+            <p class="text-muted-foreground">${wardDetail.constituency.mla} (${wardDetail.constituency.name})</p>
           </div>
         </div>
 
-        <!-- Allotted Officer Card if available -->
+        <!-- Allotted Field Officer Section -->
         ${c.assignedOfficer ? `
-          <div class="bg-gradient-to-r from-blue-50 to-indigo-50 dark:from-slate-800 dark:to-indigo-950/40 border border-blue-200 dark:border-blue-900/50 rounded-xl p-4">
-            <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-              <div>
-                <span class="text-[11px] font-bold uppercase tracking-wider text-blue-700 dark:text-blue-300 block mb-0.5">
-                  ${t.allottedOfficerTitle}
-                </span>
-                <p class="text-sm font-bold text-slate-900 dark:text-white flex items-center gap-2">
-                  <i data-lucide="user-check" class="w-4 h-4 text-blue-600 dark:text-blue-400"></i>
-                  ${c.assignedOfficer.name}
-                  <span class="text-xs font-normal text-slate-600 dark:text-slate-400">(${c.assignedOfficer.department || 'MCC'})</span>
-                </p>
-                <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">
-                  <strong>${t.targetDeadline}:</strong> <span class="font-mono text-indigo-700 dark:text-indigo-300 font-bold">${c.assignedOfficer.allottedTime || c.targetDate}</span>
-                </p>
-                ${c.resolutionNotes ? `<p class="text-xs text-slate-500 dark:text-slate-400 italic mt-1">"${c.resolutionNotes}"</p>` : ''}
-              </div>
-
-              <div class="flex items-center gap-2">
-                <a 
-                  href="tel:${c.assignedOfficer.phone}" 
-                  class="px-3.5 py-2 rounded-lg bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold flex items-center gap-1.5 shadow-sm transition"
-                >
-                  <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
-                  ${t.contactOfficer}: ${c.assignedOfficer.phone}
-                </a>
-              </div>
+          <div class="rounded-2xl border border-primary/20 bg-primary/5 p-4 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <span class="text-[10px] font-bold uppercase tracking-wider text-primary block mb-0.5">
+                ${t.allottedOfficerTitle}
+              </span>
+              <p class="text-xs sm:text-sm font-bold text-foreground flex items-center gap-2">
+                <i data-lucide="user-check" class="w-4 h-4 text-primary"></i>
+                ${c.assignedOfficer.name}
+                <span class="text-xs font-normal text-muted-foreground">(${c.assignedOfficer.department || 'MCC'})</span>
+              </p>
+              <p class="text-xs text-muted-foreground mt-1">
+                <strong>${t.targetDeadline}:</strong> <span class="font-mono text-primary font-bold">${c.assignedOfficer.allottedTime || c.targetDate}</span>
+              </p>
+              ${c.resolutionNotes ? `<p class="text-xs text-muted-foreground italic mt-0.5">"${c.resolutionNotes}"</p>` : ''}
             </div>
+
+            <a 
+              href="tel:${c.assignedOfficer.phone}" 
+              class="rounded-full px-4 py-2 bg-primary text-primary-foreground text-xs font-semibold shadow-soft hover:-translate-y-0.5 transition flex items-center gap-1.5 self-start sm:self-auto"
+            >
+              <i data-lucide="phone-call" class="w-3.5 h-3.5"></i>
+              ${t.contactOfficer}: ${c.assignedOfficer.phone}
+            </a>
           </div>
         ` : `
-          <div class="bg-amber-50/70 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-900/40 rounded-xl p-3.5 text-xs text-amber-800 dark:text-amber-300 flex items-center justify-between">
-            <span class="flex items-center gap-2">
-              <i data-lucide="clock" class="w-4 h-4 text-amber-600"></i>
-              ${isKn ? 'ಪಾಲಿಕೆ ವಲಯ ಇಂಜಿನಿಯರ್ ಪರಿಶೀಲಿಸುತ್ತಿದ್ದಾರೆ. ಕ್ಷೇತ್ರಾಧಿಕಾರಿಯನ್ನು ಶೀಘ್ರದಲ್ಲೇ ನಿಯೋಜಿಸಲಾಗುವುದು.' : 'Awaiting Field Officer Assignment by Ward Executive Engineer.'}
-            </span>
+          <div class="rounded-2xl border border-border bg-muted/30 p-3 text-xs text-muted-foreground flex items-center gap-2">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-accent"></i>
+            <span>${isKn ? 'ಪಾಲಿಕೆ ವಲಯ ಇಂಜಿನಿಯರ್ ಪರಿಶೀಲಿಸುತ್ತಿದ್ದಾರೆ. ಕ್ಷೇತ್ರಾಧಿಕಾರಿಯನ್ನು ಶೀಘ್ರದಲ್ಲೇ ನಿಯೋಜಿಸಲಾಗುವುದು.' : 'Awaiting Field Officer Assignment by Ward Executive Engineer.'}</span>
           </div>
         `}
+
       </div>
     `;
   }).join('');
@@ -496,18 +508,16 @@ function renderCitizenComplaints() {
   initLucideIcons();
 }
 
-// Render Official Dashboard
+// Render Official Dashboard Table & Metrics
 function renderOfficialDashboard() {
   const t = TRANSLATIONS[state.lang];
   const isKn = state.lang === 'kn';
 
-  // Apply Constituency Filter
   let list = state.complaints;
   if (state.officialConstituencyFilter !== 'ALL') {
     list = list.filter(c => c.constituencyId === state.officialConstituencyFilter);
   }
 
-  // Calculate Metrics
   const total = list.length;
   const pending = list.filter(c => c.status !== 'Resolved').length;
   const stale = list.filter(c => c.status !== 'Resolved' && getDaysElapsed(c.createdAt) > 20).length;
@@ -520,7 +530,6 @@ function renderOfficialDashboard() {
   document.getElementById('metric-resolved-val').textContent = resolved;
   document.getElementById('metric-rate-val').textContent = `${rate}%`;
 
-  // Apply Status Filter for table
   let tableList = list;
   if (state.officialStatusFilter === 'STALE') {
     tableList = tableList.filter(c => c.status !== 'Resolved' && getDaysElapsed(c.createdAt) > 20);
@@ -536,7 +545,7 @@ function renderOfficialDashboard() {
   if (tableList.length === 0) {
     tableBody.innerHTML = `
       <tr>
-        <td colspan="7" class="text-center py-10 text-xs text-slate-500 dark:text-slate-400">
+        <td colspan="7" class="text-center py-12 text-xs text-muted-foreground">
           ${t.noComplaints}
         </td>
       </tr>
@@ -551,38 +560,38 @@ function renderOfficialDashboard() {
     const statusBadgeClass = getStatusBadgeClass(c.status);
 
     return `
-      <tr class="border-b border-slate-100 dark:border-slate-800 hover:bg-slate-50/70 dark:hover:bg-slate-800/50 transition">
+      <tr class="hover:bg-muted/30 transition">
         <!-- ID & Date -->
         <td class="py-4 px-4 align-top">
-          <span class="font-mono text-xs font-bold text-slate-800 dark:text-slate-200 block">${c.id}</span>
-          <span class="text-[11px] text-slate-400">${new Date(c.createdAt).toLocaleDateString()}</span>
+          <span class="font-mono text-xs font-bold text-foreground block">${c.id}</span>
+          <span class="text-[10px] text-muted-foreground">${new Date(c.createdAt).toLocaleDateString()}</span>
         </td>
 
         <!-- Issue & Category -->
         <td class="py-4 px-4 align-top max-w-xs">
-          <p class="text-xs font-bold text-slate-900 dark:text-white leading-snug mb-1">
+          <p class="text-xs font-bold text-foreground leading-snug mb-1">
             ${isKn && c.title_kn ? c.title_kn : c.title}
           </p>
-          <span class="inline-block text-[10px] font-semibold text-amber-600 dark:text-amber-400 bg-amber-50 dark:bg-amber-950/40 px-2 py-0.5 rounded">
+          <span class="inline-block text-[10px] font-semibold text-primary rounded-full border border-primary/20 bg-primary/5 px-2.5 py-0.5">
             ${isKn && c.category_kn ? c.category_kn : c.category}
           </span>
         </td>
 
         <!-- Ward / Area -->
-        <td class="py-4 px-4 align-top text-xs text-slate-700 dark:text-slate-300">
-          <strong class="text-slate-900 dark:text-white block">Ward ${c.wardNo}</strong>
-          <span class="text-[11px] text-slate-500">${wardDetail.constituency.name}</span>
-          <p class="text-[11px] text-slate-400 truncate max-w-[160px]">${c.address}</p>
+        <td class="py-4 px-4 align-top text-xs">
+          <strong class="text-foreground block">Ward ${c.wardNo}</strong>
+          <span class="text-[10px] text-muted-foreground">${wardDetail.constituency.name}</span>
+          <p class="text-[10px] text-muted-foreground truncate max-w-[150px]">${c.address}</p>
         </td>
 
-        <!-- Age in Days -->
+        <!-- Age (Days) -->
         <td class="py-4 px-4 align-top whitespace-nowrap">
           ${isStale ? `
-            <span class="inline-flex items-center gap-1 text-[11px] font-extrabold px-2.5 py-1 rounded-full badge-stale badge-stale-pulse">
+            <span class="inline-flex items-center gap-1 text-[10px] font-extrabold px-2.5 py-1 rounded-full badge-stale badge-stale-pulse">
               <i data-lucide="alert-triangle" class="w-3 h-3"></i> ${daysOld}d (STALE)
             </span>
           ` : `
-            <span class="text-xs font-medium text-slate-600 dark:text-slate-400">
+            <span class="text-xs font-medium text-muted-foreground">
               ${daysOld} days
             </span>
           `}
@@ -590,7 +599,7 @@ function renderOfficialDashboard() {
 
         <!-- Status -->
         <td class="py-4 px-4 align-top whitespace-nowrap">
-          <span class="inline-block text-xs font-semibold px-2.5 py-1 rounded-full ${statusBadgeClass}">
+          <span class="inline-block text-xs font-semibold px-2.5 py-0.5 rounded-full ${statusBadgeClass}">
             ${getStatusName(c.status)}
           </span>
         </td>
@@ -598,27 +607,27 @@ function renderOfficialDashboard() {
         <!-- Assigned Officer & Deadline -->
         <td class="py-4 px-4 align-top text-xs">
           ${c.assignedOfficer ? `
-            <div class="text-slate-800 dark:text-slate-200">
-              <strong class="font-bold block">${c.assignedOfficer.name}</strong>
-              <span class="text-slate-500 dark:text-slate-400 font-mono text-[11px] block">${c.assignedOfficer.phone}</span>
-              <span class="text-[11px] text-indigo-600 dark:text-indigo-400 font-semibold block mt-0.5">
+            <div>
+              <strong class="font-bold text-foreground block">${c.assignedOfficer.name}</strong>
+              <span class="text-muted-foreground font-mono text-[11px] block">${c.assignedOfficer.phone}</span>
+              <span class="text-[10px] text-primary font-bold block mt-0.5">
                 Target: ${c.assignedOfficer.allottedTime || c.targetDate}
               </span>
             </div>
           ` : `
-            <span class="inline-block text-[11px] font-bold text-rose-600 dark:text-rose-400 bg-rose-50 dark:bg-rose-950/40 px-2 py-1 rounded">
+            <span class="inline-block text-[10px] font-bold text-destructive rounded-full border border-destructive/20 bg-destructive/5 px-2 py-0.5">
               Unassigned
             </span>
           `}
         </td>
 
         <!-- Action Button -->
-        <td class="py-4 px-4 align-top whitespace-nowrap">
+        <td class="py-4 px-4 align-top text-right whitespace-nowrap">
           <button 
             onclick="window.openAssignModal('${c.id}')"
-            class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-600 text-slate-950 text-xs font-bold flex items-center gap-1 shadow-sm transition"
+            class="rounded-full px-3.5 py-1.5 bg-primary text-primary-foreground text-xs font-bold shadow-soft hover:-translate-y-0.5 transition inline-flex items-center gap-1"
           >
-            <i data-lucide="user-plus" class="w-3.5 h-3.5"></i>
+            <i data-lucide="user-plus" class="w-3 h-3"></i>
             ${t.assignOfficerBtn}
           </button>
         </td>
@@ -650,7 +659,7 @@ function getStatusName(status) {
   }
 }
 
-// Modal Handling: Open Assign Officer Modal
+// Modal: Assign Officer
 window.openAssignModal = function(complaintId) {
   state.editingComplaintId = complaintId;
   const complaint = state.complaints.find(c => c.id === complaintId);
@@ -660,20 +669,17 @@ window.openAssignModal = function(complaintId) {
   document.getElementById('assign-complaint-id-display').textContent = complaint.id;
   document.getElementById('assign-complaint-title-display').textContent = complaint.title;
 
-  // Pre-fill existing data if any
   if (complaint.assignedOfficer) {
     document.getElementById('assign-officer-name').value = complaint.assignedOfficer.name || '';
     document.getElementById('assign-officer-phone').value = complaint.assignedOfficer.phone || '';
     document.getElementById('assign-officer-dept').value = complaint.assignedOfficer.department || '';
     document.getElementById('assign-deadline').value = complaint.assignedOfficer.allottedTime || complaint.targetDate || '';
   } else {
-    // Suggest local AEE based on Ward
     const wardDetail = getWardDetails(complaint.wardNo);
     document.getElementById('assign-officer-name').value = `${wardDetail.ward.aeeName} (AEE)`;
     document.getElementById('assign-officer-phone').value = wardDetail.ward.aeePhone;
     document.getElementById('assign-officer-dept').value = `MCC Ward ${complaint.wardNo} Engineering`;
     
-    // Default deadline: 7 days from now
     const nextWeek = new Date();
     nextWeek.setDate(nextWeek.getDate() + 7);
     document.getElementById('assign-deadline').value = nextWeek.toISOString().split('T')[0];
@@ -691,7 +697,6 @@ function closeAssignModal() {
   state.editingComplaintId = null;
 }
 
-// Save Allotment
 function handleSaveAllotment(e) {
   e.preventDefault();
   if (!state.editingComplaintId) return;
@@ -722,7 +727,7 @@ function handleSaveAllotment(e) {
   showToast(state.lang === 'kn' ? "ಅಧಿಕಾರಿಯನ್ನು ಯಶಸ್ವಿಯಾಗಿ ನಿಯೋಜಿಸಲಾಗಿದೆ!" : "Field Officer allotted and citizen notified!");
 }
 
-// Modal Handling: Citizen File Complaint Modal
+// Modal: File Complaint
 function openComplaintModal() {
   document.getElementById('file-complaint-modal').classList.remove('hidden');
   document.getElementById('complaint-citizen-name').value = state.userProfile.name;
@@ -780,7 +785,7 @@ function handleCreateComplaint(e) {
   showToast(state.lang === 'kn' ? `ದೂರು #${newId} ಯಶಸ್ವಿಯಾಗಿ ದಾಖಲಾಗಿದೆ!` : `Complaint #${newId} registered successfully!`);
 }
 
-// Modal Handling: Update Profile
+// Modal: Profile
 function openProfileModal() {
   document.getElementById('update-profile-modal').classList.remove('hidden');
   document.getElementById('profile-name').value = state.userProfile.name;
@@ -807,7 +812,6 @@ function handleSaveProfile(e) {
   showToast(state.lang === 'kn' ? "ಪ್ರೊಫೈಲ್ ಮತ್ತು ಶಾಸಕರ ಹಂಚಿಕೆಯನ್ನು ನವೀಕರಿಸಲಾಗಿದೆ!" : "Profile and representatives auto-allotted!");
 }
 
-// Toast notification helper
 function showToast(msg) {
   const toast = document.getElementById('toast');
   if (!toast) return;
@@ -823,26 +827,21 @@ function showToast(msg) {
 
 // Event Bindings
 function bindEvents() {
-  // Theme & Language
   document.getElementById('theme-toggle-btn')?.addEventListener('click', toggleTheme);
   document.getElementById('lang-toggle-btn')?.addEventListener('click', toggleLanguage);
 
-  // Portal Navigation
   document.getElementById('nav-citizen-btn')?.addEventListener('click', () => setRole('citizen'));
   document.getElementById('nav-official-btn')?.addEventListener('click', () => setRole('official'));
 
-  // Modals Open/Close
   document.getElementById('open-complaint-modal-btn')?.addEventListener('click', openComplaintModal);
   document.getElementById('close-complaint-modal-btn')?.addEventListener('click', closeComplaintModal);
   document.getElementById('close-assign-modal-btn')?.addEventListener('click', closeAssignModal);
   document.getElementById('close-profile-modal-btn')?.addEventListener('click', closeProfileModal);
 
-  // Forms
   document.getElementById('new-complaint-form')?.addEventListener('submit', handleCreateComplaint);
   document.getElementById('assign-officer-form')?.addEventListener('submit', handleSaveAllotment);
   document.getElementById('update-profile-form')?.addEventListener('submit', handleSaveProfile);
 
-  // Official Filters
   document.getElementById('official-constituency-select')?.addEventListener('change', (e) => {
     state.officialConstituencyFilter = e.target.value;
     renderOfficialDashboard();
@@ -851,32 +850,30 @@ function bindEvents() {
   document.querySelectorAll('.official-filter-tab').forEach(btn => {
     btn.addEventListener('click', (e) => {
       document.querySelectorAll('.official-filter-tab').forEach(b => {
-        b.classList.remove('bg-amber-500', 'text-slate-950', 'font-bold');
-        b.classList.add('text-slate-500', 'hover:text-slate-900', 'dark:text-slate-400');
+        b.classList.remove('bg-primary', 'text-primary-foreground', 'font-bold');
+        b.classList.add('text-muted-foreground', 'hover:text-foreground');
       });
-      e.currentTarget.classList.add('bg-amber-500', 'text-slate-950', 'font-bold');
-      e.currentTarget.classList.remove('text-slate-500', 'hover:text-slate-900', 'dark:text-slate-400');
+      e.currentTarget.classList.add('bg-primary', 'text-primary-foreground', 'font-bold');
+      e.currentTarget.classList.remove('text-muted-foreground', 'hover:text-foreground');
       state.officialStatusFilter = e.currentTarget.getAttribute('data-status');
       renderOfficialDashboard();
     });
   });
 
-  // Citizen Complaint Filter Tabs
   document.querySelectorAll('.citizen-filter-tab').forEach(btn => {
     btn.addEventListener('click', (e) => {
       document.querySelectorAll('.citizen-filter-tab').forEach(b => {
-        b.classList.remove('bg-amber-500', 'text-slate-950', 'font-bold');
-        b.classList.add('text-slate-500', 'hover:text-slate-900', 'dark:text-slate-400');
+        b.classList.remove('bg-primary', 'text-primary-foreground', 'font-bold');
+        b.classList.add('text-muted-foreground', 'hover:text-foreground');
       });
-      e.currentTarget.classList.add('bg-amber-500', 'text-slate-950', 'font-bold');
-      e.currentTarget.classList.remove('text-slate-500', 'hover:text-slate-900', 'dark:text-slate-400');
+      e.currentTarget.classList.add('bg-primary', 'text-primary-foreground', 'font-bold');
+      e.currentTarget.classList.remove('text-muted-foreground', 'hover:text-foreground');
       state.citizenStatusFilter = e.currentTarget.getAttribute('data-status');
       renderCitizenComplaints();
     });
   });
 }
 
-// Master Render Function
 function renderAll() {
   applyTranslations();
   renderRepresentativesCard();
