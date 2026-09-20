@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mysuru Macchegalu | ಮೈಸೂರು ಮಚ್ಚೆಗಳು - namma mysuru, namma kartavya</title>
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23d97706'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            amber: {
+              450: '#f59e0b',
+              550: '#d97706',
+            }
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body class="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 transition-colors duration-200">
+
+  <!-- Top Navigation & Brand Bar -->
+  <header class="sticky top-0 z-40 bg-white/90 dark:bg-slate-900/90 backdrop-blur-md border-b border-slate-200 dark:border-slate-800 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-20">
+        
+        <!-- Logo & Brand -->
+        <div class="flex items-center gap-3.5">
+          <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-amber-600 via-amber-500 to-yellow-400 p-0.5 shadow-md flex items-center justify-center text-white">
+            <div class="w-full h-full bg-slate-900 rounded-[14px] flex items-center justify-center">
+              <i data-lucide="shield-alert" class="w-6 h-6 text-amber-400"></i>
+            </div>
+          </div>
+          <div>
+            <div class="flex items-center gap-2">
+              <h1 class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white" data-i18n="brandName">
+                Mysuru Macchegalu
+              </h1>
+              <span class="text-xs font-semibold px-2 py-0.5 rounded-md bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-400 border border-amber-300 dark:border-amber-800/60">
+                Greater Mysuru
+              </span>
+            </div>
+            <p class="text-xs font-semibold text-amber-600 dark:text-amber-400 tracking-wider uppercase italic" data-i18n="tagline">
+              "namma mysuru, namma kartavya"
+            </p>
+          </div>
+        </div>
+
+        <!-- Portal Role Selector Tabs -->
+        <div class="hidden md:flex items-center bg-slate-100 dark:bg-slate-800 p-1.5 rounded-2xl border border-slate-200 dark:border-slate-700">
+          <button id="nav-citizen-btn" class="px-5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 bg-amber-500 text-slate-900 shadow-md">
+            <i data-lucide="users" class="w-4 h-4"></i>
+            <span data-i18n="citizenPortal">Citizen Portal</span>
+          </button>
+          <button id="nav-official-btn" class="px-5 py-2 rounded-xl text-xs font-bold transition flex items-center gap-2 text-slate-400 hover:text-slate-200">
+            <i data-lucide="shield" class="w-4 h-4"></i>
+            <span data-i18n="officialPortal">Officials Portal</span>
+          </button>
+        </div>
+
+        <!-- Utility Toggles: Language & Theme -->
+        <div class="flex items-center gap-2.5">
+          <!-- Kannada / English Toggle -->
+          <button 
+            id="lang-toggle-btn"
+            class="px-3.5 py-2 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-xs font-bold text-slate-800 dark:text-slate-200 flex items-center gap-1.5 shadow-sm transition"
+            title="Toggle Kannada / English"
+          >
+            <i data-lucide="languages" class="w-4 h-4 text-amber-500"></i>
+            <span id="lang-toggle-text">ಕನ್ನಡ</span>
+          </button>
+
+          <!-- Theme Toggle -->
+          <button 
+            id="theme-toggle-btn"
+            class="p-2.5 rounded-xl border border-slate-200 dark:border-slate-700 bg-white dark:bg-slate-800 hover:bg-slate-100 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 shadow-sm transition flex items-center gap-1.5 text-xs font-medium"
+            title="Toggle Dark / Light Theme"
+          >
+            <i id="theme-icon" data-lucide="sun" class="w-4 h-4 text-amber-500"></i>
+            <span id="theme-label" class="hidden sm:inline" data-i18n="lightMode">Light Mode</span>
+          </button>
+        </div>
+
+      </div>
+
+      <!-- Mobile Portal Selector Sub-bar -->
+      <div class="flex md:hidden pb-3 pt-1 border-t border-slate-100 dark:border-slate-800 gap-2">
+        <button id="mobile-nav-citizen-btn" onclick="document.getElementById('nav-citizen-btn').click()" class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-amber-500 text-slate-950 text-center">
+          Citizen Portal
+        </button>
+        <button id="mobile-nav-official-btn" onclick="document.getElementById('nav-official-btn').click()" class="flex-1 py-1.5 rounded-lg text-xs font-bold bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 text-center">
+          Officials Portal
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN CONTAINER -->
+  <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-10">
+
+    <!-- ========================================================================= -->
+    <!-- CITIZEN PORTAL SECTION -->
+    <!-- ========================================================================= -->
+    <section id="citizen-portal-section" class="space-y-8">
+
+      <!-- Hero & Greater Mysuru Mission Banner -->
+      <div class="relative overflow-hidden rounded-3xl mysore-gradient text-white p-8 md:p-10 shadow-xl border border-indigo-900/50">
+        <div class="relative z-10 max-w-3xl">
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-500/20 border border-amber-400/30 text-amber-300 text-xs font-bold uppercase tracking-wider mb-4">
+            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
+            Greater Mysuru Expansion Transparency Drive
+          </div>
+          <h2 class="text-3xl sm:text-4xl font-extrabold tracking-tight text-white mb-3" data-i18n="citizenGreeting">
+            Welcome to Mysuru Macchegalu
+          </h2>
+          <p class="text-sm sm:text-base text-slate-200 leading-relaxed mb-6" data-i18n="citizenSubtitle">
+            A Greater Mysuru civic initiative. Report issues, get direct representative allotment, and hold authorities accountable.
+          </p>
+
+          <!-- Citizen Action Buttons & Stats Bar -->
+          <div class="flex flex-wrap items-center gap-4">
+            <button 
+              id="open-complaint-modal-btn"
+              class="px-6 py-3.5 rounded-2xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-sm flex items-center gap-2 shadow-lg shadow-amber-500/20 transition transform hover:-translate-y-0.5"
+            >
+              <i data-lucide="plus-circle" class="w-5 h-5"></i>
+              <span data-i18n="fileComplaintBtn">Register New Complaint</span>
+            </button>
+
+            <!-- Quick Stats -->
+            <div class="flex items-center gap-6 bg-slate-900/40 backdrop-blur-md px-5 py-2.5 rounded-2xl border border-white/10">
+              <div>
+                <span class="text-xs text-slate-300 block font-medium" data-i18n="activeComplaints">Active Complaints</span>
+                <span id="stat-active-count" class="text-xl font-extrabold text-amber-400">0</span>
+              </div>
+              <div class="h-7 w-px bg-white/15"></div>
+              <div>
+                <span class="text-xs text-slate-300 block font-medium" data-i18n="resolvedComplaints">Resolved Issues</span>
+                <span id="stat-resolved-count" class="text-xl font-extrabold text-emerald-400">0</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Decorative Mysore Palace Art Background Silhouette -->
+        <div class="absolute right-0 bottom-0 opacity-10 pointer-events-none transform translate-x-10 translate-y-10">
+          <i data-lucide="landmark" class="w-96 h-96 text-white"></i>
+        </div>
+      </div>
+
+      <!-- AUTO-ALLOTTED REPRESENTATIVES & OFFICIALS CARD -->
+      <div class="bg-slate-50 dark:bg-slate-900/60 rounded-3xl p-6 sm:p-8 border border-slate-200 dark:border-slate-800 shadow-sm">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-6">
+          <div>
+            <div class="flex items-center gap-2">
+              <i data-lucide="badge-check" class="w-5 h-5 text-amber-500"></i>
+              <h3 class="text-lg sm:text-xl font-extrabold text-slate-900 dark:text-white" data-i18n="representativeCardTitle">
+                Your Designated Elected Representatives & Ward Engineers
+              </h3>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="representativeCardDesc">
+              Automatically mapped based on your registered Ward & Locality under Greater Mysuru Corporation
+            </p>
+          </div>
+        </div>
+
+        <!-- Dynamic Container for MP, MLA, AEE cards -->
+        <div id="representatives-container">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- INFLUENCER'S PICK COLLABORATION SECTION -->
+      <div class="space-y-5">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+          <div>
+            <div class="flex items-center gap-2.5">
+              <span class="p-1.5 rounded-lg bg-rose-500/10 text-rose-500">
+                <i data-lucide="flame" class="w-5 h-5"></i>
+              </span>
+              <h3 class="text-xl font-extrabold text-slate-900 dark:text-white" data-i18n="influencersPickTitle">
+                Influencer's Pick
+              </h3>
+              <span class="text-xs font-bold px-2 py-0.5 rounded-full bg-rose-100 dark:bg-rose-950/60 text-rose-700 dark:text-rose-300">
+                Community Spotlight
+              </span>
+            </div>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-1" data-i18n="influencersPickSubtitle">
+              Civic activists & Mysuru influencers spotlighting neglected emergencies. Upvote to escalate community priority!
+            </p>
+          </div>
+        </div>
+
+        <!-- Influencer Picks Cards Grid -->
+        <div id="influencers-picks-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+      <!-- CITIZEN'S REGISTERED COMPLAINTS & TRACKING -->
+      <div class="space-y-6 pt-4">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-4 border-b border-slate-200 dark:border-slate-800 pb-4">
+          <div>
+            <h3 class="text-xl font-extrabold text-slate-900 dark:text-white" data-i18n="recentComplaintsTitle">
+              My Registered Complaints
+            </h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Track resolution milestones, assigned field officers, and time deadlines.
+            </p>
+          </div>
+
+          <!-- Citizen Filter Tabs -->
+          <div class="flex items-center gap-1.5 bg-slate-200/70 dark:bg-slate-800 p-1 rounded-xl text-xs font-semibold overflow-x-auto">
+            <button class="citizen-filter-tab px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold transition" data-status="ALL" data-i18n="statusAll">
+              All Complaints
+            </button>
+            <button class="citizen-filter-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 transition" data-status="Pending" data-i18n="statusPending">
+              Pending
+            </button>
+            <button class="citizen-filter-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 transition" data-status="Assigned" data-i18n="statusAssigned">
+              Officer Allotted
+            </button>
+            <button class="citizen-filter-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 transition" data-status="Resolved" data-i18n="statusResolved">
+              Resolved
+            </button>
+          </div>
+        </div>
+
+        <!-- Citizen Complaints Feed Container -->
+        <div id="citizen-complaints-container" class="space-y-4">
+          <!-- Rendered via JS -->
+        </div>
+      </div>
+
+    </section>
+
+    <!-- ========================================================================= -->
+    <!-- OFFICIALS PORTAL SECTION (Hidden by default, switched via tab) -->
+    <!-- ========================================================================= -->
+    <section id="official-portal-section" class="space-y-8 hidden">
+
+      <!-- Official Header Banner -->
+      <div class="bg-gradient-to-r from-slate-900 via-indigo-950 to-slate-900 text-white rounded-3xl p-6 sm:p-8 border border-indigo-800/40 shadow-xl flex flex-col md:flex-row md:items-center justify-between gap-6">
+        <div>
+          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/20 border border-indigo-400/30 text-indigo-300 text-xs font-bold uppercase tracking-wider mb-2">
+            <i data-lucide="shield-check" class="w-3.5 h-3.5"></i>
+            Mysuru Municipal Corporation (MCC) & Legislative Monitoring
+          </div>
+          <h2 class="text-2xl sm:text-3xl font-extrabold text-white" data-i18n="officialPortalTitle">
+            Greater Mysuru Municipal & Legislative Action Center
+          </h2>
+          <p class="text-xs sm:text-sm text-slate-300 mt-1" data-i18n="officialSubtitle">
+            Official monitoring portal for MCC Commissioners, Ward Engineers, and MLA/MP Secretariats.
+          </p>
+        </div>
+
+        <!-- Constituency Scope Filter Dropdown -->
+        <div class="bg-white/10 backdrop-blur-md p-3.5 rounded-2xl border border-white/15 min-w-[240px]">
+          <label class="block text-[11px] font-bold text-amber-400 uppercase tracking-wider mb-1" data-i18n="filterConstituency">
+            Filter by Constituency
+          </label>
+          <select 
+            id="official-constituency-select" 
+            class="w-full bg-slate-900 text-white rounded-xl text-xs font-bold px-3 py-2 border border-slate-700 focus:outline-none focus:border-amber-400"
+          >
+            <option value="ALL">All Mysuru Constituencies (ಒಟ್ಟಾರೆ)</option>
+            <option value="KR">Krishnaraja (KR) - MLA T.S. Srivatsa</option>
+            <option value="CHAMARAJA">Chamaraja - MLA K. Harish Gowda</option>
+            <option value="NR">Narasimharaja (NR) - MLA Tanveer Sait</option>
+            <option value="CHAMUNDESHWARI">Chamundeshwari - MLA G.T. Devegowda</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- OFFICIAL KPI METRICS ROW -->
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4">
+        <!-- Metric: Total -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span class="text-xs font-medium text-slate-500 dark:text-slate-400 block mb-1" data-i18n="metricTotal">Total Grievances</span>
+          <span id="metric-total-val" class="text-2xl font-black text-slate-900 dark:text-white">0</span>
+        </div>
+
+        <!-- Metric: Pending -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span class="text-xs font-medium text-amber-600 dark:text-amber-400 block mb-1" data-i18n="metricPending">Pending Action</span>
+          <span id="metric-pending-val" class="text-2xl font-black text-amber-600 dark:text-amber-400">0</span>
+        </div>
+
+        <!-- Metric: CRITICAL STALE > 20 DAYS (Highlight feature!) -->
+        <div class="bg-rose-50 dark:bg-rose-950/40 rounded-2xl p-5 border-2 border-rose-500/50 shadow-sm relative overflow-hidden">
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold text-rose-600 dark:text-rose-400 flex items-center gap-1" data-i18n="metricStale">
+              <i data-lucide="alert-triangle" class="w-3.5 h-3.5"></i> Stale (> 20 Days)
+            </span>
+            <span class="w-2.5 h-2.5 rounded-full bg-rose-500 animate-ping"></span>
+          </div>
+          <span id="metric-stale-val" class="text-2xl font-black text-rose-600 dark:text-rose-400">0</span>
+          <p class="text-[10px] text-rose-700/80 dark:text-rose-300 font-semibold mt-1" data-i18n="metricStaleDesc">
+            Urgent Escalation Required
+          </p>
+        </div>
+
+        <!-- Metric: Resolved -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm">
+          <span class="text-xs font-medium text-emerald-600 dark:text-emerald-400 block mb-1" data-i18n="metricResolved">Successfully Resolved</span>
+          <span id="metric-resolved-val" class="text-2xl font-black text-emerald-600 dark:text-emerald-400">0</span>
+        </div>
+
+        <!-- Metric: Rate -->
+        <div class="bg-white dark:bg-slate-900 rounded-2xl p-5 border border-slate-200 dark:border-slate-800 shadow-sm col-span-2 md:col-span-1">
+          <span class="text-xs font-medium text-slate-500 dark:text-slate-400 block mb-1" data-i18n="metricRate">Resolution Rate</span>
+          <span id="metric-rate-val" class="text-2xl font-black text-indigo-600 dark:text-indigo-400">0%</span>
+        </div>
+      </div>
+
+      <!-- OFFICIAL COMPLAINTS WORKFLOW TABLE -->
+      <div class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+        <!-- Table Header & Filter Tabs -->
+        <div class="p-6 border-b border-slate-200 dark:border-slate-800 flex flex-col md:flex-row md:items-center justify-between gap-4">
+          <div>
+            <h3 class="text-lg font-extrabold text-slate-900 dark:text-white" data-i18n="officialsQueueTitle">
+              Constituency Action Queue
+            </h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+              Review grievances, allot field engineers with name & phone, and set completion deadlines.
+            </p>
+          </div>
+
+          <!-- Official Status Filter Buttons -->
+          <div class="flex flex-wrap items-center gap-1.5 bg-slate-100 dark:bg-slate-800 p-1.5 rounded-xl text-xs font-semibold">
+            <button class="official-filter-tab px-3 py-1.5 rounded-lg bg-amber-500 text-slate-950 font-bold transition" data-status="ALL" data-i18n="filterAll">
+              All
+            </button>
+            <button class="official-filter-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 transition flex items-center gap-1" data-status="STALE">
+              <i data-lucide="alert-octagon" class="w-3.5 h-3.5 text-rose-500"></i>
+              <span data-i18n="filterStaleOnly">Critical (> 20 Days)</span>
+            </button>
+            <button class="official-filter-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 transition" data-status="PENDING" data-i18n="filterPending">
+              Pending
+            </button>
+            <button class="official-filter-tab px-3 py-1.5 rounded-lg text-slate-600 dark:text-slate-400 hover:text-slate-900 transition" data-status="RESOLVED" data-i18n="filterResolved">
+              Resolved
+            </button>
+          </div>
+        </div>
+
+        <!-- Responsive Table Container -->
+        <div class="overflow-x-auto">
+          <table class="w-full text-left text-xs">
+            <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 uppercase tracking-wider text-[11px] font-bold border-b border-slate-200 dark:border-slate-800">
+              <tr>
+                <th class="py-3.5 px-4" data-i18n="tableColId">Complaint ID</th>
+                <th class="py-3.5 px-4" data-i18n="tableColIssue">Issue & Category</th>
+                <th class="py-3.5 px-4" data-i18n="tableColWard">Ward / Area</th>
+                <th class="py-3.5 px-4" data-i18n="tableColAge">Age (Days)</th>
+                <th class="py-3.5 px-4" data-i18n="tableColStatus">Current Status</th>
+                <th class="py-3.5 px-4" data-i18n="tableColOfficer">Assigned Officer & Deadline</th>
+                <th class="py-3.5 px-4 text-right" data-i18n="tableColAction">Action</th>
+              </tr>
+            </thead>
+            <tbody id="official-table-body" class="divide-y divide-slate-100 dark:divide-slate-800">
+              <!-- Rendered via JS -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </section>
+
+  </main>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: REGISTER NEW COMPLAINT (Citizen) -->
+  <!-- ========================================================================= -->
+  <div id="file-complaint-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay hidden">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-6">
+        <div>
+          <h3 class="text-xl font-extrabold text-slate-900 dark:text-white" data-i18n="modalTitle">
+            File a Public Grievance
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="modalSubtitle">
+            Your complaint will be automatically notified to your Ward AEE, MLA, and MP.
+          </p>
+        </div>
+        <button id="close-complaint-modal-btn" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-xl">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="new-complaint-form" class="space-y-4">
+        <!-- Category Selection -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelCategory">
+            Grievance Category
+          </label>
+          <select id="complaint-category" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-amber-500 focus:outline-none" required>
+            <option value="Roads & Infrastructure">Roads & Infrastructure (ರಸ್ತೆ ಮತ್ತು ಗುಂಡಿಗಳು)</option>
+            <option value="Sewage & Drainage">Sewage & Drainage (ಒಳಚರಂಡಿ ಮತ್ತು ನೈರ್ಮಲ್ಯ)</option>
+            <option value="Drinking Water">Drinking Water (ಕುಡಿಯುವ ನೀರು ಸರಬರಾಜು)</option>
+            <option value="Street Lighting">Street Lighting (ಬೀದಿದೀಪಗಳ ಸಮಸ್ಯೆ)</option>
+            <option value="Solid Waste Management">Solid Waste / Garbage (ಕಸ ವಿಲೇವಾರಿ)</option>
+            <option value="Encroachment & Pavements">Encroachment & Footpaths (ಫುಟ್‌ಪಾತ್ ಒತ್ತುವರಿ)</option>
+            <option value="Greater Mysuru Layouts">Greater Mysuru Expansion Issues (ವಿಸ್ತರಣಾ ಬಡಾವಣೆ)</option>
+          </select>
+        </div>
+
+        <!-- Issue Headline -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelTitle">
+            Issue Headline / Summary
+          </label>
+          <input 
+            type="text" 
+            id="complaint-title" 
+            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+            placeholder="e.g., Massive pothole near 8th Main signal causing accidents"
+            data-i18n-placeholder="titlePlaceholder"
+            required
+          />
+        </div>
+
+        <!-- Ward Number (Auto mapping) -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelWard">
+              Select Ward Number
+            </label>
+            <select id="complaint-ward" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-amber-500 focus:outline-none" required>
+              <!-- Populated via JS -->
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelAddress">
+              Specific Address / Landmark
+            </label>
+            <input 
+              type="text" 
+              id="complaint-address" 
+              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+              placeholder="e.g., In front of Post Office, 3rd Cross"
+              data-i18n-placeholder="addressPlaceholder"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Description -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelDescription">
+            Detailed Description of the Problem
+          </label>
+          <textarea 
+            id="complaint-description" 
+            rows="3" 
+            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none leading-relaxed" 
+            placeholder="Describe how long this issue has persisted, how it affects residents, and specific hazards..."
+            data-i18n-placeholder="descPlaceholder"
+            required
+          ></textarea>
+        </div>
+
+        <!-- Citizen Name & Mobile -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1 border-t border-slate-100 dark:border-slate-800">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelCitizenName">
+              Your Full Name
+            </label>
+            <input 
+              type="text" 
+              id="complaint-citizen-name" 
+              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+              required
+            />
+          </div>
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelCitizenPhone">
+              Your Mobile Number (for SMS tracking)
+            </label>
+            <input 
+              type="tel" 
+              id="complaint-citizen-phone" 
+              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Submit & Actions -->
+        <div class="pt-4 flex items-center justify-end gap-3">
+          <button 
+            type="button" 
+            onclick="document.getElementById('close-complaint-modal-btn').click()" 
+            class="px-5 py-2.5 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            data-i18n="cancelBtn"
+          >
+            Cancel
+          </button>
+          <button 
+            type="submit" 
+            class="px-6 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold shadow-md transition"
+            data-i18n="submitComplaintBtn"
+          >
+            Submit Complaint to MCC
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: ALLOT OFFICER & SET DEADLINE (Officials) -->
+  <!-- ========================================================================= -->
+  <div id="assign-officer-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay hidden">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-lg w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-4">
+        <div>
+          <h3 class="text-lg font-extrabold text-slate-900 dark:text-white" data-i18n="assignModalTitle">
+            Allot Field Officer & Set Deadline
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="assignModalSubtitle">
+            Provide mandatory officer contact data and time allotted for completion.
+          </p>
+        </div>
+        <button id="close-assign-modal-btn" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-xl">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <!-- Complaint Info Badge -->
+      <div class="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800/40 rounded-xl p-3 mb-4">
+        <span class="text-[10px] font-mono font-bold text-amber-800 dark:text-amber-400 block" id="assign-complaint-id-display">MMC-2024-0000</span>
+        <h5 class="text-xs font-bold text-slate-900 dark:text-white truncate" id="assign-complaint-title-display">Grievance Headline</h5>
+      </div>
+
+      <form id="assign-officer-form" class="space-y-3.5">
+        <!-- Officer Name -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelOfficerName">
+            Designated Field Officer Name
+          </label>
+          <input 
+            type="text" 
+            id="assign-officer-name" 
+            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+            placeholder="e.g., M. N. Srinivas (AEE Civil)"
+            required
+          />
+        </div>
+
+        <!-- Officer Phone & Department -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelOfficerPhone">
+              Officer Official Mobile Number
+            </label>
+            <input 
+              type="tel" 
+              id="assign-officer-phone" 
+              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-mono focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+              placeholder="+91 94808 33402"
+              required
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelOfficerDept">
+              Department / Section
+            </label>
+            <input 
+              type="text" 
+              id="assign-officer-dept" 
+              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+              placeholder="e.g., MCC Zone 5 Engineering"
+              required
+            />
+          </div>
+        </div>
+
+        <!-- Deadline & Status -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelDeadline">
+              Allotted Completion Deadline Date
+            </label>
+            <input 
+              type="date" 
+              id="assign-deadline" 
+              class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+              required
+            />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelStatus">
+              Update Status
+            </label>
+            <select id="assign-status" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-amber-500 focus:outline-none">
+              <option value="Assigned">Officer Allotted (ನಿಯೋಜಿಸಲಾಗಿದೆ)</option>
+              <option value="In_Progress">In Progress (ಪ್ರಗತಿಯಲ್ಲಿದೆ)</option>
+              <option value="Resolved">Resolved (ಪರಿಹರಿಸಲಾಗಿದೆ)</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Notes / Action plan -->
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelInternalNotes">
+            Action Plan / Work Order Notes
+          </label>
+          <textarea 
+            id="assign-notes" 
+            rows="2" 
+            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+            placeholder="e.g., Jetting machine scheduled for clearance..."
+          ></textarea>
+        </div>
+
+        <!-- Buttons -->
+        <div class="pt-3 flex items-center justify-end gap-3">
+          <button 
+            type="button" 
+            onclick="document.getElementById('close-assign-modal-btn').click()" 
+            class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            data-i18n="cancelBtn"
+          >
+            Cancel
+          </button>
+          <button 
+            type="submit" 
+            class="px-5 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold shadow-md transition"
+            data-i18n="saveAllotmentBtn"
+          >
+            Confirm Allotment & Notify Citizen
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ========================================================================= -->
+  <!-- MODAL: UPDATE CITIZEN WARD / PROFILE -->
+  <!-- ========================================================================= -->
+  <div id="update-profile-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 modal-overlay hidden">
+    <div class="bg-white dark:bg-slate-900 rounded-3xl max-w-md w-full p-6 sm:p-8 shadow-2xl border border-slate-200 dark:border-slate-800">
+      
+      <div class="flex items-center justify-between pb-4 border-b border-slate-100 dark:border-slate-800 mb-5">
+        <div>
+          <h3 class="text-lg font-extrabold text-slate-900 dark:text-white" data-i18n="profileModalTitle">
+            Update Your Citizen Ward & Address
+          </h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5" data-i18n="profileModalSubtitle">
+            Setting your ward accurately connects you with your local MLA and Ward Engineer.
+          </p>
+        </div>
+        <button id="close-profile-modal-btn" class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-200 p-2 rounded-xl">
+          <i data-lucide="x" class="w-5 h-5"></i>
+        </button>
+      </div>
+
+      <form id="update-profile-form" class="space-y-4">
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelCitizenName">
+            Full Name
+          </label>
+          <input 
+            type="text" 
+            id="profile-name" 
+            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white font-medium focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+            required
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelCitizenPhone">
+            Mobile Number
+          </label>
+          <input 
+            type="tel" 
+            id="profile-phone" 
+            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white font-mono focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+            required
+          />
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelWard">
+            Your Ward (Auto-Allots MLA & MP)
+          </label>
+          <select id="profile-ward" class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white font-semibold focus:ring-2 focus:ring-amber-500 focus:outline-none">
+            <!-- Populated via JS -->
+          </select>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 dark:text-slate-300 mb-1" data-i18n="labelAddress">
+            Residential Address / Locality
+          </label>
+          <input 
+            type="text" 
+            id="profile-address" 
+            class="w-full bg-slate-50 dark:bg-slate-800 border border-slate-300 dark:border-slate-700 rounded-xl px-3.5 py-2.5 text-xs text-slate-900 dark:text-white focus:ring-2 focus:ring-amber-500 focus:outline-none" 
+            required
+          />
+        </div>
+
+        <div class="pt-3 flex items-center justify-end gap-3">
+          <button 
+            type="button" 
+            onclick="document.getElementById('close-profile-modal-btn').click()" 
+            class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 text-xs font-bold text-slate-700 dark:text-slate-300 hover:bg-slate-100 dark:hover:bg-slate-800 transition"
+            data-i18n="cancelBtn"
+          >
+            Cancel
+          </button>
+          <button 
+            type="submit" 
+            class="px-5 py-2.5 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 text-xs font-extrabold shadow-md transition"
+            data-i18n="saveProfileBtn"
+          >
+            Save & Auto-Map Representatives
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- TOAST NOTIFICATION -->
+  <div id="toast" class="fixed bottom-6 right-6 z-50 bg-slate-900 text-white dark:bg-white dark:text-slate-900 px-5 py-3 rounded-2xl shadow-2xl border border-slate-700 text-xs font-bold flex items-center gap-2 transform transition duration-300 hidden translate-y-10 opacity-0">
+    Notification message
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="border-t border-slate-200 dark:border-slate-800 py-8 bg-white dark:bg-slate-950 mt-16 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center space-y-2">
+      <p class="text-xs font-semibold text-slate-700 dark:text-slate-300" data-i18n="footerGovtNote">
+        Greater Mysuru Public Accountability & Transparency Framework
+      </p>
+      <p class="text-[11px] text-slate-500 dark:text-slate-500" data-i18n="footerCopyright">
+        Mysuru Macchegalu © 2026. Empowering citizens through open civic engagement.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Application Scripts -->
+  <script src="js/data.js"></script>
+  <script src="js/i18n.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
